@@ -1,0 +1,85 @@
+<style>
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+    .row{
+  margin-top: 30px;
+  margin-bottom: 30px
+}
+</style>
+<div class="container">
+<section ng-controller="TimeSheetController" ng-init="getTimeSheet()">
+    <div class="form-group">
+        <div class="row">
+            <div  class="col-md-10 col-centered">
+            <div class="col-md-5 ">
+                <div class="row">
+                   <a class="btn btn-labeled btn-primary" ng-href="#/timesheet/new" href="#/sistemas/new">
+                            <span class="btn-label">
+                                <i class="fa fa-plus"></i>
+                            </span>New Appointment
+                        </a>
+                </div>
+                <div class="row">
+                 <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
+                </div>
+            
+                
+            </div>
+            <div class="col-md-4 col-md-offset-1">
+            
+
+    <h4>Select date of appointmets</h4>
+    <div style="display:inline-block; min-height:290px;">
+      <datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="well well-sm" ng-change="changeDate(dt)" custom-class="getDayClass(date, mode)"></datepicker>
+    </div>
+            </div>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-centered">
+                  <table class="table table-bordered table-hover">
+            <thead class="thead-sennit">
+                <tr>
+                    <th class="col-lg-1 col-md-3 col-sm-3 text-center">Date</th>
+                    <th class="col-lg-1 col-md-3 col-sm-3 text-center">Project</th>
+                    <th class="col-lg-1 col-md-3 col-sm-3 text-center">Hours</th>
+                    
+                    <th class="col-lg-2 col-md-3 col-sm-4 text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="timesheet in timesheets" class="ng-scope">
+                    <td class="col-lg-1 col-md-2 col-sm-3 ng-binding">
+                        {{timesheet.data | date: 'dd/MM/yyyy' }}
+                    </td>
+                     <td class="col-lg-1 col-md-2 col-sm-3 ng-binding">
+                        {{timesheet.project.name }}
+                    </td>
+                     <td class="col-lg-1 col-md-2 col-sm-3 ng-binding">
+                        {{timesheet.quantityTime }}
+                    </td>
+                    
+                    <td class="col-lg-2 col-md-3 col-sm-4 text-center">
+                        <a href="#/timesheet/{{timesheet.id}}" class="mb-sm btn btn-primary">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+
+                        <button type="button" class="mb-sm btn btn-danger" ng-click="delete(timesheet)" aria-label="Left Align">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+            </div>
+        </div>
+      
+    </div>
+</section>
+</div>

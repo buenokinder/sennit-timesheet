@@ -1,0 +1,69 @@
+<section ng-controller="TimeSheetNewController" ng-init="getProjects()" >
+    <form ng-submit="submitTimesheetForm()" id="sign-up-form" class="form-signin" name="timesheet">
+      <h2 class="form-signin-heading">Create new appointment</h2>
+      <div class="row">
+
+        <!-- D A T E -->
+
+        <!-- checking whether the form "signup" with the "name" property is both $invalid AND $dirty.  If it is
+        insert the "has-error" class on the input field (i.e. insert a red border around the input field)
+        -->
+        <div class="control-group form-group col-md-12">
+          <label>Date</label>
+
+          <!-- For this input field make it required, and have a max length of 25 -->
+       <p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="data" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+
+          <!-- Also, if signup.name.$dirty is true, show the message depending upon the particular properties truthiness (e.g. required
+          and/or maxlength) -->
+         <!-- <span class="help-block has-error" ng-if="signup.name.$dirty">
+            <span ng-show="signup.name.$error.required">Name is required.</span>
+            <span ng-show="signup.name.$error.maxlength">The name cannot be more than 50 characters.</span>
+          </span>-->
+        </div>
+
+        <!-- H O U R S -->
+
+        <div class="control-group form-group col-md-12">
+          <label>Hours</label>
+          <select class="form-control" ng-model="hora" ng-options="opt for opt in options.horas"></select>
+      <!--    <span class="help-block has-error" ng-if="signup.title.$dirty">
+            <span ng-show="signup.title.$error.required">Title is required.</span>
+            <span ng-show="signup.title.$error.maxlength">The name cannot be more than 50 characters.</span>
+          </span>-->
+        </div>
+
+        <!-- P R O J E C T -->
+
+        <div class="control-group form-group col-md-12">
+          <label>Project</label>
+          <select name="project" required="" class="form-control ng-pristine ng-valid ng-valid-required" ng-model="project" ng-change="changeProject(project)" ng-options="project.name for project in projects  track by  project.id"><option value="?" selected="selected" label=""></select>
+          <!--<span class="help-block has-error" ng-if="signup.email.$dirty">
+            <span ng-show="signup.email.$error.required">Email address is required.</span>
+            <span ng-show="signup.email.$error.email">Not a valid email address.</span>
+          </span>-->
+        </div>
+
+          
+       
+      </div>
+
+      <br/>
+
+      <!-- Disable signup button until the form has no errors -->
+      <button class="btn btn-primary btn-lg btn-block" type="submit" ng-disabled="timesheet.$invalid">
+        <span ng-show="!timesheetForm.loading">Create Appointment</span>
+        <span class="overlord-loading-spinner fa fa-spinner" ng-show="signupForm.loading" ></span>
+        <span ng-show="timesheetForm.loading">Preparing your new appointment...</span>
+      </button>
+
+      <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+    </form>
+
+
+</section>
