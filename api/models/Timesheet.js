@@ -15,7 +15,7 @@ module.exports = {
       project: {
         model: 'projects'
       },
-      quantityTime: 'float'
+      quantityTime: 'float',
+      profile: 'STRING'
   }
 };
-

@@ -1,0 +1,44 @@
+<div class="center-block" ng-init="init()">
+  <div class="span12 dm-libg">
+    <div class="dm-line-free dm-lifree">
+      <h3>Tabela Ativos</h3>
+    </div>
+  </div>
+
+	<a href="#/ativos/novo" class="btn btn-primary novo">Novo</a>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>NSérie</th>
+        <th>NPatrimônio</th>
+        <th>Modelo</th>
+        <th>Tamanho</th>
+        <th>Descrição</th>
+        <th>Tipo</th>
+        <th>Excluir/Editar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="ativo in ativos">
+        <th>{{ativo.nome}}</th>
+        <th>{{ativo.nserie}}</th>
+        <th>{{ativo.npatrimonio}}</th>
+        <th>{{ativo.modelo}}</th>
+        <th>{{ativo.tamanho}}</th>
+        <th>{{ativo.descricao}}</th>
+        <th>{{ativo.tiponome}}</th>
+        <th>
+          <a href="#/ativos/{{ativo.id}}" class="btn btn-info">
+            <i class="fa fa-pencil"></i>
+          </a> 
+          <button type="submit" class="btn btn-danger" ng-click="delete(ativo.id)">
+          <i class="fa fa-trash-o"></i>
+          </button>                                           
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>

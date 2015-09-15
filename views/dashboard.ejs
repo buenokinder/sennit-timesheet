@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Sennit TimeSheet | Welcome back, <%= me.name %>!</title>
+    <title>Sennit Systems | Welcome back, <%= me.name %>!</title>
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/angular-toastr.css">
+    <link rel="stylesheet" href="/styles/app.css">
     <link rel="stylesheet" href="/styles/bootstrap.3.1.1.css">
     <link rel="stylesheet" href="/styles/importer.css">
     <!--STYLES END-->
@@ -31,19 +32,38 @@
         <span class="icon-bar"></span>
         </button>
         <!-- This is the brand on the left-hand side. -->
-        <a class="navbar-brand" href="/#/"> Sennit TimeSheet</a>
+        <a class="navbar-brand" href="/#/"> Sennit Systems</a>
         <!-- This is what is the above collapse button points to when the mark-up below is collapsed -->
         <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
           <!-- This is what "styles" the li's as navbar items -->
           <ul class="nav navbar-nav navbar-right">
-            <!-- navbar-right pulls this element right -->
-            <!-- Using ng-show instead of ng-if because we need this mark-up to be in the dom when signup controller
-            fires.  If it's not there (which it wouldn't be in the case of ng-if) then the scope of the signup
-            controller will not be tied to this element. -->
-              
-              <li>
-              <a href="#/timesheet">TimeSheet</a>
-            </li>
+              <li class="dropdown">
+                    <a data-toggle="dropdown" href="" class="dropdown-toggle" aria-expanded="true">
+                        <small>Asset</small>
+                      </span>
+
+                      <i class="ace-icon fa fa-caret-down"></i>
+                    </a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#/asset">Asset</a></li>
+                        <li><a href="#/type">Type</a></li>
+                      </ul>
+                  </li>
+          
+          <li class="dropdown" >
+                    <a data-toggle="dropdown" href="" class="dropdown-toggle" aria-expanded="true">
+                        <small>TimeSheet</small>
+                      </span>
+
+                      <i class="ace-icon fa fa-caret-down"></i>
+                    </a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#/project">Project</a></li>
+                        <li><a href="#/timesheet">TimeSheet</a></li>
+                      </ul>
+                  </li>
+      
+      
               <li dropdown on-toggle="toggled(open)">
       <a href id="simple-dropdown" dropdown-toggle>
         <span class="user-info ng-binding">
@@ -89,6 +109,7 @@
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/dependencies/1-angular.min.js"></script>
+    <script src="/js/dependencies/2-jquery.1.7.min.js"></script>
     <script src="/js/dependencies/angular-animate.min.js"></script>
     <script src="/js/dependencies/angular-aria.min.js"></script>
     <script src="/js/dependencies/angular-cookies.min.js"></script>
@@ -101,7 +122,9 @@
     <script src="/js/dependencies/angular-scenario.js"></script>
     <script src="/js/dependencies/angular-toastr.js"></script>
     <script src="/js/dependencies/angular-touch.min.js"></script>
+    <script src="/js/dependencies/bootstrap.min.js"></script>
     <script src="/js/dependencies/compareTo.module.js"></script>
+    <script src="/js/dependencies/jquery.1.7.min.js"></script>
     <script src="/js/dependencies/ui-bootstrap-tpls-0.13.4.min.js"></script>
     <script src="/js/public/signup/SignupModule.js"></script>
     <script src="/js/private/dashboard/DashboardModule.js"></script>

@@ -1,0 +1,25 @@
+<form ng-init="init()">
+    <div class="row margin">
+        <div class="span6">
+            <div class="form-group">
+                <label>Nome: </label>
+                <input type="text" class="form-control" placeholder="Digite o nome" ng-model="ativo.nome">
+                <label>Número de Série: </label>
+                <input type="text" class="form-control" placeholder="Digite o número de Série" ng-model="ativo.nserie">
+                <label>Número de Patrimônio: </label>
+                <input type="text" class="form-control" placeholder="Digite o número de Patrimônio" ng-model="ativo.npatrimonio">
+                <label>Modelo: </label>
+                <input type="text" class="form-control" placeholder="Digite o modelo" ng-model="ativo.modelo">
+                <label>Tamanho: </label>
+                <input type="text" class="form-control" placeholder="Digite o tamanho" ng-model="ativo.tamanho">
+                <label>Descrição: </label>
+                <input type="text" class="form-control" placeholder="Digite o descrição" ng-model="ativo.descricao" >
+                <label>Tipo: </label>
+                <select class="form-control" ng-model="tipo" ng-options="tipo.nome for tipo in tipos track by tipo.id"></select>
+
+                <a href="#/ativos" class="btn btn-primary">Voltar</a>
+                <a href="#/ativos" type="submit" class="btn btn-primary" ng-click="update()">Atualizar</a>
+            </div>
+        </div>
+    </div>
+</form>

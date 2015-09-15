@@ -8,6 +8,8 @@ app.controller('DashboardController', [ function(){
 
 }]);
 
+//TimeSheet Controllers
+
 app.controller('TimeSheetController', ['$scope','$http', function($scope,$http){
 
     $scope.timesheets = [];
@@ -25,7 +27,7 @@ app.controller('TimeSheetController', ['$scope','$http', function($scope,$http){
     $scope.changeDate = function(date){
         var theDate = Date.parse(date); 
         
-                var str = window.JSON.stringify({data:{equals: new Date(date)}});
+                var str = window.JSON.stringify({data:{equals: new Date(date)},"owner":{"equals": window.SAILS_LOCALS.me.id }});
         
         
 console.log(str);
@@ -221,6 +223,209 @@ $scope.today = function() {
     
 }]);
 
+//End TimeSheet Controllers
+
+//Project Controllers
+
+app.controller('ProjectController', ['$scope','$http', function($scope,$http){
+
+    $scope.projects = [];
+    
+    $scope.delete = function(project){
+        $http.delete('/project/' + project.id )
+            .then(function (project) {
+              $scope.getProjects();   
+        });
+    };
+  
+
+ 
+  
+    $scope.getProjects = function(){
+        
+        $http.get('/projects')
+		.then(function onSuccess(sailsResponse){
+			$scope.projects  =angular.fromJson(sailsResponse.data);
+         
+		})
+		.catch(function onError(sailsResponse){
+
+		var emailAddressAlreadyInUse = sailsResponse.status == 409;
+       });
+    };
+
+    
+}]);
+
+app.controller('ProjectNewController', ['$scope','$http', function($scope,$http){
+    
+  $scope.name = [];
+ 
+    // set-up loading state
+	$scope.timesheetForm = {
+		loading: false
+	}
+
+	$scope.submitTimesheetForm = function(){
+
+		// Set the loading state (i.e. show loading spinner)
+		$scope.timesheetForm.loading = true;
+
+		// Submit request to Sails.
+		$http.post('/projects', {
+			name: $scope.name
+		})
+		.then(function onSuccess(sailsResponse){
+			window.location = '/#/project';
+		})
+		.catch(function onError(sailsResponse){
+
+		
+
+		})
+		.finally(function eitherWay(){
+			$scope.timesheetForm.loading = false;
+		})
+	};
+
+ 
+     $scope.project = [];
+  
+    
+
+}]);
+
+app.controller('ProjectEditController', ['$scope','$http','$routeParams', function($scope,$http,$routeParams){
+ 
+
+    // set-up loading state
+	$scope.timesheetForm = {
+		loading: false
+	}
+
+    
+    
+    
+	$scope.submitTimesheetForm = function(){
+
+		// Set the loading state (i.e. show loading spinner)
+		$scope.timesheetForm.loading = true;
+
+		// Submit request to Sails.
+		$http.put('/projects/' + $routeParams.id + '?name='+ $scope.project.name)
+		.then(function onSuccess(sailsResponse){
+			window.location = '/#/project';
+		})
+		.catch(function onError(sailsResponse){
+
+		
+
+		})
+		.finally(function eitherWay(){
+			$scope.timesheetForm.loading = false;
+		})
+	};
+
+
+     $scope.project = [];
+    $scope.getProjects = function(){
+    $http.get('/projects/' + $routeParams.id)
+		.then(function onSuccess(sailsResponse){
+			$scope.project  =angular.fromJson(sailsResponse.data);
+            console.log($scope.project);
+		})
+		.catch(function onError(sailsResponse){
+
+		// Handle known error type(s).
+		// If using sails-disk adpater -- Handle Duplicate Key
+		var emailAddressAlreadyInUse = sailsResponse.status == 409;
+       });
+        
+    };
+    
+    
+    
+}]);
+
+app.controller('tiposController', ['$scope', '$http', function($scope, $http){
+
+  $scope.tipos = [];
+  $scope.tipo = [];
+
+  $scope.init = function(){
+    $http.get("tipoativo").then(function(results) {
+      $scope.tipos = angular.fromJson(results.data);
+        console.log($scope.tipos);
+    });
+  
+  };
+  // set-up loading state
+	$scope.timesheetForm = {
+		loading: false
+	}
+
+  $scope.gravarTipos = function() {
+      console.log('teste');
+      // Set the loading state (i.e. show loading spinner)
+		$scope.timesheetForm.loading = true;
+
+		// Submit request to Sails.
+		$http.post('/tipoativo', {
+			name: $scope.tipo.name
+		})
+		.then(function onSuccess(sailsResponse){
+			window.location = '/#/type';
+		})
+		.catch(function onError(sailsResponse){
+
+		
+
+		})
+		.finally(function eitherWay(){
+			$scope.timesheetForm.loading = false;
+		})
+   
+  };
+
+    
+  $scope.delete = function(id){
+       $http.delete('/tipoativo/' + id )
+            .then(function (project) {
+              $scope.init();   
+        });
+      
+  };
+}]);
+
+app.controller('tiposUpdateController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+ 
+  $scope.tipo = [];
+  
+ 
+  
+  $scope.update = function() {
+      
+      // Submit request to Sails.
+		$http.put('/tipoativo/' + $routeParams.id + '?name='+ $scope.tipo.name)
+		.then(function onSuccess(sailsResponse){
+			window.location = '/#/type';
+		})
+		.catch(function onError(sailsResponse){
+
+		
+
+		})
+		.finally(function eitherWay(){
+			$scope.timesheetForm.loading = false;
+		})
+  
+  };
+  
+  $http.get("/tipoativo/" + $routeParams.id).then(function(results) {
+    $scope.tipo = angular.fromJson(results.data);
+  });
+}]);
+
 app.config(['$routeProvider',  function ($routeProvider) {
     $routeProvider.when('/', {
       templateUrl: '/views/dashboard.html',
@@ -250,6 +455,28 @@ app.config(['$routeProvider',  function ($routeProvider) {
         controller : 'ProjectEditController'
     });
     
+    
+    $routeProvider.when("/asset", {
+		controller: "ativosController",
+		templateUrl: "/views/ativo/grid.html"
+	}).when("/asset/novo", {
+		controller: "ativosController",
+		templateUrl: "/views/ativo/form.html"
+	}).when("/asset/:id", {
+		controller: "ativosUpdateController",
+		templateUrl: "/views/ativo/form-edit.html"
+	});
+
+	$routeProvider.when("/type", {
+		controller: "tiposController",
+		templateUrl: "/views/tipo/grid.html"
+	}).when("/type/new", {
+		controller: "tiposController",
+		templateUrl: "/views/tipo/form.html"
+	}).when("/type/:id", {
+		controller: "tiposUpdateController",
+    templateUrl: "/views/tipo/form-edit.html"
+  });
     
     $routeProvider.otherwise({
       redirectTo: '/'
