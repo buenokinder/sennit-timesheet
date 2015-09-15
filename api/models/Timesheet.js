@@ -8,14 +8,25 @@
 module.exports = {
 
   attributes: {
-      data: 'date',
+      data: {
+      type: 'date',
+      required: true
+    },
       owner: {
-        model: 'user'
+        model: 'user',
+          required: true
       },
       project: {
-        model: 'projects'
+        model: 'projects',
+          required: true
       },
-      quantityTime: 'float',
-      profile: 'STRING'
+      quantityTime: {
+        type: 'float',
+        required: true
+      },
+      description: { 
+          type: 'STRING',
+          required: true
+      }
   }
 };

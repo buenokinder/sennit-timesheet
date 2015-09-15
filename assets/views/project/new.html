@@ -1,6 +1,6 @@
-<section ng-controller="TimeSheetNewController" ng-init="getProjects()" >
+<section ng-controller="ProjectNewController" ng-init="getProjects()" >
     <form ng-submit="submitTimesheetForm()" id="sign-up-form" class="form-signin" name="timesheet">
-      <h2 class="form-signin-heading">Create new appointment</h2>
+      <h2 class="form-signin-heading">Create new Project</h2>
       <div class="row">
 
         <!-- D A T E -->
@@ -13,18 +13,11 @@
 
           <!-- For this input field make it required, and have a max length of 25 -->
        <p class="input-group">
-              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="data" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
+              <input type="text" class="form-control" ng-model="name"  ng-required="true"   />
+           
             </p>
 
-          <!-- Also, if signup.name.$dirty is true, show the message depending upon the particular properties truthiness (e.g. required
-          and/or maxlength) -->
-         <!-- <span class="help-block has-error" ng-if="signup.name.$dirty">
-            <span ng-show="signup.name.$error.required">Name is required.</span>
-            <span ng-show="signup.name.$error.maxlength">The name cannot be more than 50 characters.</span>
-          </span>-->
+         
         </div>
 
       

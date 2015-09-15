@@ -13,10 +13,8 @@
 
           <!-- For this input field make it required, and have a max length of 25 -->
        <p class="input-group">
-              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="timesheet.data" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
+              <input type="text" class="form-control"  ng-model="project.name"  ng-required="true" />
+            
             </p>
 
           <!-- Also, if signup.name.$dirty is true, show the message depending upon the particular properties truthiness (e.g. required
@@ -36,7 +34,7 @@
 
       <!-- Disable signup button until the form has no errors -->
       <button class="btn btn-primary btn-lg btn-block" type="submit" ng-disabled="timesheet.$invalid">
-        <span ng-show="!timesheetForm.loading">Create Project</span>
+        <span ng-show="!timesheetForm.loading">Update Project</span>
         <span class="overlord-loading-spinner fa fa-spinner" ng-show="signupForm.loading" ></span>
         <span ng-show="timesheetForm.loading">Preparing your new project...</span>
       </button>

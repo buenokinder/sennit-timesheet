@@ -15,7 +15,8 @@ angular.module('SignupModule').controller('SignupController', ['$scope', '$http'
 			name: $scope.signupForm.name,
 			title: $scope.signupForm.title,
 			email: $scope.signupForm.email,
-			password: $scope.signupForm.password
+			password: $scope.signupForm.password,
+            admin: false
 		})
 		.then(function onSuccess(sailsResponse){
 			window.location = '/';

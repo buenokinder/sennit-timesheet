@@ -44,6 +44,13 @@ module.exports = {
       required: true,
       defaultsTo: new Date(0)
     },
+      // The timestamp when the the user last logged in
+    // (i.e. sent a username and password to the server)
+    admin: {
+      type: 'boolean',
+      required: true,
+      defaultsTo: false
+    },
 
     // url for gravatar
     gravatarUrl: {

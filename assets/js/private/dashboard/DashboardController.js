@@ -4,8 +4,10 @@ var app = angular.module('DashboardModule', [
     	'ui.bootstrap'
     ]);
 
-app.controller('DashboardController', [ function(){
+app.controller('DashboardController', [ '$scope', function($scope){
+ 
 
+  $scope.isAdmin =  window.SAILS_LOCALS.me.isAdmin;
 }]);
 
 //TimeSheet Controllers
@@ -51,7 +53,7 @@ app.controller('TimeSheetNewController', ['$scope','$http', function($scope,$htt
     
   $scope.hora = [];
   $scope.data = [];
-
+    $scope.description = [];
     // set-up loading state
 	$scope.timesheetForm = {
 		loading: false
@@ -67,7 +69,8 @@ app.controller('TimeSheetNewController', ['$scope','$http', function($scope,$htt
 			data: $scope.data,
 			quantityTime: $scope.hora,
 			owner: window.SAILS_LOCALS.me.id,
-			project: $scope.project
+			project: $scope.project,
+            description: $scope.description
 		})
 		.then(function onSuccess(sailsResponse){
 			window.location = '/';
@@ -148,7 +151,7 @@ app.controller('TimeSheetEditController', ['$scope','$http','$routeParams', func
 		$scope.timesheetForm.loading = true;
 
 		// Submit request to Sails.
-		$http.put('/timesheet/' + $routeParams.id + '?data='+ $scope.timesheet.data+ '&quantityTime='+ $scope.timesheet.quantityTime + '&owner=' + window.SAILS_LOCALS.me.id + '&project='+ $scope.timesheet.project.id)
+		$http.put('/timesheet/' + $routeParams.id + '?data='+ $scope.timesheet.data+ '&description=' +   $scope.timesheet.description+ '&quantityTime='+ $scope.timesheet.quantityTime + '&owner=' + window.SAILS_LOCALS.me.id + '&project='+ $scope.timesheet.project.id)
 		.then(function onSuccess(sailsResponse){
 			window.location = '/';
 		})
