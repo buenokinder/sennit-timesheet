@@ -29,7 +29,7 @@ app.controller('TimeSheetController', ['$scope','$http', function($scope,$http){
     $scope.changeDate = function(date){
         var theDate = Date.parse(date); 
         
-                var str = window.JSON.stringify({data:{equals: new Date(date)},"owner":{"equals": window.SAILS_LOCALS.me.id }});
+                var str = window.JSON.stringify({data: new Date(date),"owner": window.SAILS_LOCALS.me.id });
         
         
 console.log(str);
