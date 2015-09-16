@@ -5,7 +5,7 @@
     </div>
   </div>
 
-	<a href="#/ativos/novo" class="btn btn-primary novo">Novo</a>
+	<a href="#/asset/new" class="btn btn-primary novo">Novo</a>
 
   <table class="table table-bordered table-hover">
     <thead>
@@ -22,15 +22,15 @@
     </thead>
     <tbody>
       <tr ng-repeat="ativo in ativos">
-        <th>{{ativo.nome}}</th>
-        <th>{{ativo.nserie}}</th>
-        <th>{{ativo.npatrimonio}}</th>
-        <th>{{ativo.modelo}}</th>
-        <th>{{ativo.tamanho}}</th>
-        <th>{{ativo.descricao}}</th>
-        <th>{{ativo.tiponome}}</th>
+        <th>{{ativo.name}}</th>
+        <th>{{ativo.serialNumber}}</th>
+        <th>{{ativo.assetNumber}}</th>
+        <th>{{ativo.model}}</th>
+        <th>{{ativo.size}}</th>
+        <th>{{ativo.description}}</th>
+        <th>{{ativo.type.name}}</th>
         <th>
-          <a href="#/ativos/{{ativo.id}}" class="btn btn-info">
+          <a href="#/asset/{{ativo.id}}" class="btn btn-info">
             <i class="fa fa-pencil"></i>
           </a> 
           <button type="submit" class="btn btn-danger" ng-click="delete(ativo.id)">
