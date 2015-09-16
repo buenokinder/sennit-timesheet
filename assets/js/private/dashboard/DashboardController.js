@@ -350,6 +350,96 @@ app.controller('ProjectEditController', ['$scope','$http','$routeParams', functi
     
 }]);
 
+app.controller('ativosController', ['$scope', '$http', function($scope, $http){
+  $scope.ativo = [];
+  $scope.tipo = [];
+  $scope.ativos = [];
+  $scope.tipos = [];
+
+	$scope.timesheetForm = {
+		loading: false
+	}
+
+  $scope.init = function(){
+    $http.get("ativo").then(function(results) {
+      $scope.ativos = angular.fromJson(results.data);
+    });
+
+    $http.get("tipoativo").then(function(results) {
+      $scope.tipos = angular.fromJson(results.data);
+    });
+  };
+
+  $scope.gravarAtivos = function(){
+    console.log($scope.ativos);
+      // Set the loading state (i.e. show loading spinner)
+		$scope.timesheetForm.loading = true;
+
+		// Submit request to Sails.
+		$http.post('/ativo', {
+			name: $scope.ativo.name,
+			serialNumber: $scope.ativo.serialNumber,
+			assetNumber: $scope.ativo.assetNumber,
+			model: $scope.ativo.model,
+			size: $scope.ativo.size,
+			description: $scope.ativo.description,
+			type: $scope.tipo.id
+		})
+		.then(function onSuccess(sailsResponse){
+			window.location = '/#/asset';
+		})
+		.catch(function onError(sailsResponse){
+
+		
+
+		})
+		.finally(function eitherWay(){
+			$scope.timesheetForm.loading = false;
+		})
+   
+  };
+  
+  $scope.delete = function(id){
+	 $http.delete('/ativo/' + id )
+	      .then(function (project) {
+	        $scope.init();   
+  			});
+  };
+}]);
+
+
+app.controller('ativosUpdateController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+  $scope.ativo = [];
+  $scope.tipo = [];
+  $scope.tipos = [];
+	$scope.timesheetForm = {
+		loading: false
+	}
+
+  $scope.update = function() {
+      // Submit request to Sails.
+		$http.put('/ativo/' + $routeParams.id + '?name='+ $scope.ativo.name + '&serialNumber=' + $scope.ativo.serialNumber + '&assetNumber=' + $scope.ativo.assetNumber + '&model=' + $scope.ativo.model + '&size=' + $scope.ativo.size + '&description=' + $scope.ativo.description + '&type=' + $scope.ativo.type.id)
+		.then(function onSuccess(sailsResponse){
+			window.location = '/#/asset';
+		})
+		.catch(function onError(sailsResponse){
+
+		
+
+		})
+		.finally(function eitherWay(){
+			$scope.timesheetForm.loading = false;
+		})
+  };
+
+  $http.get("/ativo/" + $routeParams.id).then(function(results) {
+    $scope.ativo = angular.fromJson(results.data);
+  });
+  $http.get("tipoativo").then(function(results) {
+    $scope.tipos = angular.fromJson(results.data);
+  });
+}]);
+
 app.controller('tiposController', ['$scope', '$http', function($scope, $http){
 
   $scope.tipos = [];
@@ -403,7 +493,10 @@ app.controller('tiposController', ['$scope', '$http', function($scope, $http){
 app.controller('tiposUpdateController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
  
   $scope.tipo = [];
-  
+   
+  $scope.timesheetForm = {
+		loading: false
+	}
  
   
   $scope.update = function() {
@@ -458,29 +551,27 @@ app.config(['$routeProvider',  function ($routeProvider) {
         controller : 'ProjectEditController'
     });
     
-    
-    $routeProvider.when("/asset", {
-		controller: "ativosController",
-		templateUrl: "/views/ativo/grid.html"
-	}).when("/asset/novo", {
-		controller: "ativosController",
-		templateUrl: "/views/ativo/form.html"
-	}).when("/asset/:id", {
-		controller: "ativosUpdateController",
-		templateUrl: "/views/ativo/form-edit.html"
-	});
+		$routeProvider.when("/asset", {
+			controller: "ativosController",
+			templateUrl: "/views/ativo/grid.html"
+		}).when("/asset/new", {
+			controller: "ativosController",
+			templateUrl: "/views/ativo/form.html"
+		}).when("/asset/:id", {
+			controller: "ativosUpdateController",
+			templateUrl: "/views/ativo/form-edit.html"
+		});
 
-	$routeProvider.when("/type", {
-		controller: "tiposController",
-		templateUrl: "/views/tipo/grid.html"
-	}).when("/type/new", {
-		controller: "tiposController",
-		templateUrl: "/views/tipo/form.html"
-	}).when("/type/:id", {
-		controller: "tiposUpdateController",
-    templateUrl: "/views/tipo/form-edit.html"
-  });
-    
+		$routeProvider.when("/type", {
+			controller: "tiposController",
+			templateUrl: "/views/tipo/grid.html"
+		}).when("/type/new", {
+			controller: "tiposController",
+			templateUrl: "/views/tipo/form.html"
+		}).when("/type/:id", {
+			controller: "tiposUpdateController",
+		  templateUrl: "/views/tipo/form-edit.html"
+		});
     $routeProvider.otherwise({
       redirectTo: '/'
     });
