@@ -13,7 +13,7 @@ module.exports = {
             type: 'string',
             required: true
         },
-       serialNumber: {
+       serailNumber: {
             type: 'string',
             required: true
         },
