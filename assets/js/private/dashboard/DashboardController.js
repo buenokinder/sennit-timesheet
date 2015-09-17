@@ -807,6 +807,7 @@ app.controller('ativosController', ['$scope', '$http', function($scope, $http){
 			size: $scope.ativo.size,
 			description: $scope.ativo.description,
 			type: $scope.tipo.id,
+            price: $scope.price,
             user: $scope.user
 		})
 		.then(function onSuccess(sailsResponse){
@@ -837,7 +838,7 @@ app.controller('ativosUpdateController', ['$scope', '$http', '$routeParams', fun
 
   $scope.update = function() {
       // Submit request to Sails.
-		$http.put('/ativo/' + $routeParams.id + '?name='+ $scope.ativo.name + '&serialNumber=' + $scope.ativo.serialNumber + '&assetNumber=' + $scope.ativo.assetNumber + '&model=' + $scope.ativo.model + '&size=' + $scope.ativo.size + '&description=' + $scope.ativo.description + '&type=' + $scope.ativo.type.id)
+		$http.put('/ativo/' + $routeParams.id + '?name='+ $scope.ativo.name + '&serialNumber=' + $scope.ativo.serialNumber + '&assetNumber=' + $scope.ativo.assetNumber + '&model=' + $scope.ativo.model + '&size=' + $scope.ativo.size + '&description=' + $scope.ativo.description + '&type=' + $scope.ativo.type.id+ '&price=' + $scope.ativo.price)
 		.then(function onSuccess(sailsResponse){
 			window.location = '/#/asset';
 		})

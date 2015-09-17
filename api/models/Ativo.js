@@ -32,6 +32,8 @@ module.exports = {
         description: {
             type: 'string',
             required: true
+        },price: {
+            type: 'double'
         },
         type: {
         model: 'tipoAtivo'
