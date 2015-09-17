@@ -55,10 +55,6 @@ module.exports = {
     // url for gravatar
     gravatarUrl: {
       type: 'string'
-    },
-      typehelps:{
-            collection: 'typehelp',
-            via: 'users'
-        }
+    }
   }
 };
