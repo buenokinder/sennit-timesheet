@@ -35,6 +35,8 @@ module.exports = {
         },
         type: {
         model: 'tipoAtivo'
+      }, owner: {
+        model: 'user'
       }
   }
 };

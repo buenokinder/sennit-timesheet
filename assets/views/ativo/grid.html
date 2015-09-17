@@ -1,44 +1,14 @@
-<div class="center-block" ng-init="init()">
-  <div class="span12 dm-libg">
-    <div class="dm-line-free dm-lifree">
-      <h3>Tabela Ativos</h3>
+
+
+<div class="container">
+<section  >
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-10 col-centered">
+                <grid-view fields="[{'name': 'name' , 'value': 'Name'} , {'name': 'assetNumber' , 'value': 'Asset Number'} , {'name': 'type.name' , 'value': 'Asset Type'}]" listaname="ativo" adicionar="/#/asset/new" view="asset" pagesize="10"></grid-view>
+            </div>
+        </div> 
+      
     </div>
-  </div>
-
-	<a href="#/asset/new" class="btn btn-primary novo">Novo</a>
-
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>NSérie</th>
-        <th>NPatrimônio</th>
-        <th>Modelo</th>
-        <th>Tamanho</th>
-        <th>Descrição</th>
-        <th>Tipo</th>
-        <th>Excluir/Editar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="ativo in ativos">
-        <th>{{ativo.name}}</th>
-        <th>{{ativo.serialNumber}}</th>
-        <th>{{ativo.assetNumber}}</th>
-        <th>{{ativo.model}}</th>
-        <th>{{ativo.size}}</th>
-        <th>{{ativo.description}}</th>
-        <th>{{ativo.type.name}}</th>
-        <th>
-          <a href="#/asset/{{ativo.id}}" class="btn btn-info">
-            <i class="fa fa-pencil"></i>
-          </a> 
-          <button type="submit" class="btn btn-danger" ng-click="delete(ativo.id)">
-          <i class="fa fa-trash-o"></i>
-          </button>                                           
-        </th>
-      </tr>
-    </tbody>
-  </table>
-</div>
+</section>
 </div>

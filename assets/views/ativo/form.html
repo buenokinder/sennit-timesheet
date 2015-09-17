@@ -2,23 +2,27 @@
     <div class="row margin">
         <div class="span6">
             <div class="form-group">
-                <label>Nome: </label>
+                <label>Name: </label>
                 <input type="text" class="form-control" placeholder="Digite o nome" ng-model="ativo.name">
-                <label>Número de Série: </label>
+                <label>Serial Number: </label>
                 <input type="text" class="form-control" placeholder="Digite o número de Série" ng-model="ativo.serialNumber">
-                <label>Número de Patrimônio: </label>
+                <label>Asset Number: </label>
                 <input type="text" class="form-control" placeholder="Digite o número de Patrimônio" ng-model="ativo.assetNumber">
-                <label>Modelo: </label>
+                <label>Model: </label>
                 <input type="text" class="form-control" placeholder="Digite o modelo" ng-model="ativo.model">
-                <label>Tamanho: </label>
+                <label>Size: </label>
                 <input type="text" class="form-control" placeholder="Digite o tamanho" ng-model="ativo.size">
-                <label>Descrição: </label>
+                <label>Description: </label>
                 <input type="text" class="form-control" placeholder="Digite o descrição" ng-model="ativo.description" >
-                <label>Tipo: </label>
+                <label>Type: </label>
                 <select class="form-control" ng-model="tipo" ng-options="tipo.name for tipo in tipos track by tipo.id"></select>
+                
+                 <label>User: </label>
+                <select class="form-control" ng-model="user" ng-options="user.name for user in users track by user.id"></select>
 
-                <a href="#/ativos" class="btn btn-primary">Voltar</a>
-                <a href="#/ativos" type="submit" class="btn btn-primary" ng-click="gravarAtivos()">Gravar</a>
+
+                <a href="#/ativos" class="btn btn-primary">Back</a>
+                <a href="#/ativos" type="submit" class="btn btn-primary" ng-click="gravarAtivos()">Save</a>
             </div>
         </div>
     </div>

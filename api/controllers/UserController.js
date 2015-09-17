@@ -5,6 +5,10 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
+var Emailaddresses = require('machinepack-emailaddresses');
+var Passwords = require('machinepack-passwords');
+var Gravatar = require('machinepack-gravatar');
+
 module.exports = {
 
   /**
@@ -138,6 +142,94 @@ module.exports = {
       // Either send a 200 OK or redirect to the home page
       return res.backToHomePage();
 
+    });
+  },
+    
+      updateProfile: function(req, res) {
+
+    User.update({
+      id: req.param('id')
+    }, {
+      gravatarURL: req.param('gravatarURL') 
+    }, function(err, updatedUser) {
+
+      if (err) return res.negotiate(err); 
+
+      return res.json(updatedUser); 
+
+    });
+  },
+
+  changePassword: function(req, res) {
+
+    if (_.isUndefined(req.param('password'))) { 
+      return res.badRequest('A password is required!');
+    }
+
+    if (req.param('password').length < 6) { 
+      return res.badRequest('Password must be at least 6 characters!');
+    }
+
+    Passwords.encryptPassword({ 
+      password: req.param('password'),
+    }).exec({
+      error: function(err) {
+        return res.serverError(err); 
+      },
+      success: function(result) {
+
+        User.update({ 
+          id: req.param('id')
+        }, {
+          encryptedPassword: result
+        }).exec(function(err, updatedUser) {
+          if (err) {
+            return res.negotiate(err);
+          }
+          return res.json(updatedUser); 
+        });
+      }
+    });
+  },
+
+  adminUsers: function(req, res) {
+
+    User.find().exec(function(err, users){    
+
+      if (err) return res.negotiate(err);   
+
+      return res.json(users);     
+
+    });
+  },
+
+  updateAdmin: function(req, res) {
+
+    User.update(req.param('id'), {    
+      admin: req.param('admin')   
+    }).exec(function(err, update){
+
+     if (err) return res.negotiate(err);  
+
+      return res.ok();       
+    });
+  },
+
+  updateBanned: function(req, res) {
+    User.update(req.param('id'), {
+      banned: req.param('banned')
+    }).exec(function(err, update){
+     if (err) return res.negotiate(err);
+      return res.ok();
+    });
+  },
+
+  updateDeleted: function(req, res) {
+    User.update(req.param('id'), {
+      deleted: req.param('deleted')
+    }).exec(function(err, update){
+     if (err) return res.negotiate(err);
+      return res.ok();
     });
   }
 };
