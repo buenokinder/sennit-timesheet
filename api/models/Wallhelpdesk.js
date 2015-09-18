@@ -8,7 +8,17 @@
 module.exports = {
 
   attributes: {
-
+      message: {
+        type: 'string',
+        requered: true
+      },
+      helpdesk: {
+            model: 'helpdesk',
+            via: 'attachedfiles'
+      },
+      user: {
+            model: 'user'
+      }
   }
 };
 

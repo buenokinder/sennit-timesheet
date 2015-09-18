@@ -8,7 +8,18 @@
 module.exports = {
 
   attributes: {
-
+    name: {
+      type: 'string',
+      required: true
+    }, 
+      histories:{
+            collection: 'helpdeskhistory',
+            via: 'helpdesk'
+        },
+      helpdesk:{
+            collection: 'attachedfiles',
+            via: 'helpdesk'
+        }
   }
 };
 

@@ -8,7 +8,22 @@
 module.exports = {
 
   attributes: {
-
+    filename: {
+      type: 'string',
+      required: true,
+    },
+    type: {
+      type: 'string',
+      required: true
+    },
+      size: {
+      type: 'integer',
+      required: true
+    },
+      helpdesk: {
+            model: 'helpdesk',
+            via: 'attachedfiles'
+      }
   }
 };
 

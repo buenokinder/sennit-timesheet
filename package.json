@@ -36,5 +36,9 @@
     "url": "git://github.com/jgalt/activityoverlord20.git"
   },
   "author": "jgalt",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "mkdirp": "^0.5.1",
+    "shortid": "^2.2.2"
+  }
 }

@@ -4,7 +4,15 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-10 col-centered">
-                <grid-view fields="[{'name': 'data', value: 'Date', 'sub': '' , 'type': 'date'},{'name': 'owner', value: 'Owner', 'sub': 'name' } ,{'name': 'project', value: 'Project', 'sub': 'name' },{'name': 'quantityTime', value: 'Hours', 'sub': '' } ]" listaname="timesheet" strupdate="false" adicionar="" view="Time Sheet" pagesize="20"></grid-view>
+                <grid-view 
+                           filters="[ { 'name': 'Project', 'type': 'combobox' , 'api': { 'name': 'project' , 'key': 'id', 'value': 'name', 'modelListName': 'projects', 'singleModel': 'project' } } ]" 
+                           fields="[{'name': 'data', value: 'Date', 'sub': '' , 'type': 'date'},{'name': 'owner', value: 'Owner', 'sub': 'name' } ,{'name': 'project', value: 'Project', 'sub': 'name' },{'name': 'quantityTime', value: 'Hours', 'sub': '' } ]"                                                listaname="timesheet" 
+                           strupdate="false" 
+                           adicionar="" 
+                           view="Time Sheet" 
+                           pagesize="20"
+                           
+                           ></grid-view>
             </div>
         </div> 
       

@@ -8,10 +8,15 @@
 module.exports = {
 
   attributes: {
-name: {
+      
+      name: {
       type: 'string',
       required: true
-    }
+    },
+      users:{
+            collection: 'user',
+            via: 'typehelps'
+        }
   }
 };
 

@@ -8,7 +8,13 @@
 module.exports = {
 
   attributes: {
-
+    helpdesk: {
+        model: 'helpdesk',
+        via: 'histories',
+          required: true
+      }
   }
+    
+    
 };
 
