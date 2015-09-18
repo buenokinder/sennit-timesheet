@@ -33,7 +33,7 @@ module.exports = {
             type: 'string',
             required: true
         },price: {
-            type: 'double'
+            type: 'string'
         },
         type: {
         model: 'tipoAtivo'
