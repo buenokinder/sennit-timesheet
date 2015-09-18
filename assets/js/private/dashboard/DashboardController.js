@@ -807,8 +807,9 @@ app.controller('ativosController', ['$scope', '$http', function($scope, $http){
 			size: $scope.ativo.size,
 			description: $scope.ativo.description,
 			type: $scope.tipo.id,
-            price: $scope.price,
-            user: $scope.user
+      //price: $scope.price,
+      //'&price=' + $scope.ativo.price + 
+      user: $scope.user.id
 		})
 		.then(function onSuccess(sailsResponse){
 			window.location = '/#/asset';
@@ -831,6 +832,7 @@ app.controller('ativosController', ['$scope', '$http', function($scope, $http){
 app.controller('ativosUpdateController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
   $scope.ativo = [];
   $scope.tipo = [];
+  $scope.user = [];
   $scope.tipos = [];
   $scope.users = [];
 	$scope.timesheetForm = {
@@ -839,9 +841,10 @@ app.controller('ativosUpdateController', ['$scope', '$http', '$routeParams', fun
 
   $scope.update = function() {
       // Submit request to Sails.
-		$http.put('/ativo/' + $routeParams.id + '?name='+ $scope.ativo.name + '&serialNumber=' + $scope.ativo.serialNumber + '&assetNumber=' + $scope.ativo.assetNumber + '&model=' + $scope.ativo.model + '&size=' + $scope.ativo.size + '&description=' + $scope.ativo.description + '&type=' + $scope.ativo.type.id+ '&price=' + $scope.ativo.price + '&user=' + $scope.ativo.user)
+		$http.put('/ativo/' + $routeParams.id + '?name='+ $scope.ativo.name + '&serialNumber=' + $scope.ativo.serialNumber + '&assetNumber=' + $scope.ativo.assetNumber + '&model=' + $scope.ativo.model + '&size=' + $scope.ativo.size + '&description=' + $scope.ativo.description + '&type=' + $scope.ativo.type.id + '&user=' + $scope.ativo.user)
 		.then(function onSuccess(sailsResponse){
-			window.location = '/#/asset';
+			console.log($scope.ativo.user);
+      window.location = '/#/asset';
 		})
 		.catch(function onError(sailsResponse){
 
@@ -856,9 +859,11 @@ app.controller('ativosUpdateController', ['$scope', '$http', '$routeParams', fun
   $http.get("/ativo/" + $routeParams.id).then(function(results) {
     $scope.ativo = angular.fromJson(results.data);
   });
+
   $http.get("tipoativo").then(function(results) {
     $scope.tipos = angular.fromJson(results.data);
   });
+
   $http.get("user").then(function(results) {
     $scope.users = angular.fromJson(results.data);
   });
