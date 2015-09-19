@@ -8,38 +8,40 @@
 module.exports = {
 
   attributes: {
-
- name: {
-            type: 'string',
-            required: true
-        },
-       serialNumber: {
-            type: 'string',
-            required: true
-        },
-       assetNumber: {
-            type: 'string',
-            required: true
-        }, 
-      model: {
-            type: 'string',
-            required: true
-        },
-       size: {
-            type: 'string',
-            required: true
-        }, 
-        description: {
-            type: 'string',
-            required: true
-        },price: {
-            type: 'string'
-        },
-        type: {
-        model: 'tipoAtivo'
-      }, owner: {
-        model: 'user'
-      }
+    name: {
+        type: 'string',
+        required: true
+    },
+    serialNumber: {
+        type: 'string',
+        required: true
+    },
+    assetNumber: {
+        type: 'string',
+        required: true
+    }, 
+    model: {
+        type: 'string',
+        required: true
+    },
+    size: {
+        type: 'string',
+        required: true
+    }, 
+    price: {
+        type: 'string',
+        required: false
+    },
+    description: {
+        type: 'string',
+        required: true
+    },
+    type: {
+      model: 'tipoAtivo'
+    }, 
+    owner: {
+      model: 'user'
+    }
   }
 };
 

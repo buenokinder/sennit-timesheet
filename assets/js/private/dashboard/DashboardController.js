@@ -767,12 +767,10 @@ $scope.today = function() {
 
 
 app.controller('ativosController', ['$scope', '$http', function($scope, $http){
-  $scope.ativo = [];
-  $scope.tipo = [];
   $scope.ativos = [];
+  $scope.tipo = [];
   $scope.tipos = [];
-  $scope.users = [];
-  $scope.user = [];
+  $scope.usuario = [];
 	$scope.timesheetForm = {
 		loading: false
 	}
@@ -805,11 +803,10 @@ app.controller('ativosController', ['$scope', '$http', function($scope, $http){
 			assetNumber: $scope.ativo.assetNumber,
 			model: $scope.ativo.model,
 			size: $scope.ativo.size,
-			description: $scope.ativo.description,
-			type: $scope.tipo.id,
-      //price: $scope.price,
-      //'&price=' + $scope.ativo.price + 
-      user: $scope.user.id
+      price: $scope.ativo.price,
+      description: $scope.ativo.description,
+      type: $scope.tipo,
+      owner: $scope.usuario
 		})
 		.then(function onSuccess(sailsResponse){
 			window.location = '/#/asset';
@@ -831,8 +828,6 @@ app.controller('ativosController', ['$scope', '$http', function($scope, $http){
 
 app.controller('ativosUpdateController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
   $scope.ativo = [];
-  $scope.tipo = [];
-  $scope.user = [];
   $scope.tipos = [];
   $scope.users = [];
 	$scope.timesheetForm = {
@@ -841,7 +836,7 @@ app.controller('ativosUpdateController', ['$scope', '$http', '$routeParams', fun
 
   $scope.update = function() {
       // Submit request to Sails.
-		$http.put('/ativo/' + $routeParams.id + '?name='+ $scope.ativo.name + '&serialNumber=' + $scope.ativo.serialNumber + '&assetNumber=' + $scope.ativo.assetNumber + '&model=' + $scope.ativo.model + '&size=' + $scope.ativo.size + '&description=' + $scope.ativo.description + '&type=' + $scope.ativo.type.id + '&user=' + $scope.ativo.user)
+		$http.put('/ativo/' + $routeParams.id + '?name='+ $scope.ativo.name + '&serialNumber=' + $scope.ativo.serialNumber + '&assetNumber=' + $scope.ativo.assetNumber + '&model=' + $scope.ativo.model + '&size=' + $scope.ativo.size + '&price=' + $scope.ativo.price + '&description=' + $scope.ativo.description + '&type=' + $scope.ativo.type.id + '&owner=' + $scope.ativo.owner.id)
 		.then(function onSuccess(sailsResponse){
 			console.log($scope.ativo.user);
       window.location = '/#/asset';
