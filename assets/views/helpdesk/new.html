@@ -1,0 +1,164 @@
+<style>
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+    .row{
+  margin-top: 30px;
+  margin-bottom: 30px
+}
+</style>
+<div ng-controller="helpdeskDashboardController" ng-init="init()">
+<wizard on-finish="finishedWizard()"> 
+    <wz-step title="Starting">
+      
+         <form ng-submit="submitTimesheetForm()" id="sign-up-form" class="form-signin" name="timesheet">
+      <h2 class="form-signin-heading">Create new ticket</h2>
+      <div class="row">
+
+        <!-- D A T E -->
+
+        <!-- checking whether the form "signup" with the "name" property is both $invalid AND $dirty.  If it is
+        insert the "has-error" class on the input field (i.e. insert a red border around the input field)
+        -->
+  
+        <!-- H O U R S -->
+
+        <div class="control-group form-group col-md-12">
+          <label>Priority</label>
+          <select class="form-control" ng-model="priority" ng-options="opt for opt in options.priorities"></select>
+      <!--    <span class="help-block has-error" ng-if="signup.title.$dirty">
+            <span ng-show="signup.title.$error.required">Title is required.</span>
+            <span ng-show="signup.title.$error.maxlength">The name cannot be more than 50 characters.</span>
+          </span>-->
+        </div>
+
+        <!-- P R O J E C T -->
+
+        <div class="control-group form-group col-md-12">
+          <label>Type</label>
+          <select name="typehelpdesk" required="" class="form-control ng-pristine ng-valid ng-valid-required" ng-model="typehelpdesk"  ng-options="typehelpdesk.name for typehelpdesk in typehelpdesks  track by  typehelpdesk.id"><option value="?" selected="selected" label=""></select>
+            
+          <!--<span class="help-block has-error" ng-if="signup.email.$dirty">
+            <span ng-show="signup.email.$error.required">Email address is required.</span>
+            <span ng-show="signup.email.$error.email">Not a valid email address.</span>
+          </span>-->
+        </div>
+
+          <div class="control-group form-group col-md-12">
+          <label>Description</label>
+          <textarea name="project" required="description" class="form-control ng-pristine ng-valid ng-valid-required" ng-model="description" ></textarea>
+        </div>
+          
+       
+      </div>
+
+      <br/>
+
+      <!-- Disable signup button until the form has no errors -->
+      <button class="btn btn-primary btn-lg btn-block" type="button" wz-next="submitHelpDesk(description,typehelpdesk,priority )" ng-disabled="timesheet.$invalid">
+        <span ng-show="!timesheetForm.loading">Continue</span>
+        <span class="overlord-loading-spinner fa fa-spinner" ng-show="signupForm.loading" ></span>
+        <span ng-show="timesheetForm.loading">Preparing your new appointment...</span>
+      </button>
+
+      <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+    </form>
+
+    </wz-step>
+    <wz-step title="Attach Files">
+   
+         <div class="row">
+
+                <div class="col-md-6 col-centered">
+
+                    <h3>Select files</h3>
+
+      
+
+                    <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+                    Multiple
+                    <input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
+
+                 
+                </div>
+             
+             </div>
+<div class="row">
+                <div class="col-md-6 col-centered" style="margin-bottom: 40px">
+
+                    <h3>Upload queue</h3>
+                    <p>Queue length: {{ uploader.queue.length }}</p>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="50%">Name</th>
+                                <th ng-show="uploader.isHTML5">Size</th>
+                                <th ng-show="uploader.isHTML5">Progress</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in uploader.queue">
+                                <td><strong>{{ item.file.name }}</strong></td>
+                                <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                                <td ng-show="uploader.isHTML5">
+                                    <div class="progress" style="margin-bottom: 0;">
+                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                </td>
+                                <td nowrap>
+                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                        <span class="glyphicon glyphicon-upload"></span> Upload
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                        <span class="glyphicon glyphicon-trash"></span> Remove
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div>
+                        <div>
+                            Queue progress:
+                            <div class="progress" style="">
+                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                            <span class="glyphicon glyphicon-upload"></span> Upload all
+                        </button>
+                        <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+                        </button>
+                        <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                            <span class="glyphicon glyphicon-trash"></span> Remove all
+                        </button>
+                    </div>
+
+                </div>
+    <div class="col-md-2 col-centered">
+        <button class="btn btn-primary btn-lg btn-block" type="button" wz-next ng-click="submitHelpDesk()"  ng-disabled="timesheet.$invalid">
+        <span ng-show="!timesheetForm.loading">Finish</span>
+        <span class="overlord-loading-spinner fa fa-spinner" ng-show="signupForm.loading" ></span>
+        <span ng-show="timesheetForm.loading">Preparing your new appointment...</span>
+      </button></div>
+
+            </div>
+          <!-- Disable signup button until the form has no errors -->
+      
+       
+    </wz-step>
+</wizard>
+    </div>

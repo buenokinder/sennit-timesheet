@@ -6,6 +6,32 @@
  */
 
 module.exports = {
+    
+     new: function(req, res) {
+        Typehelpdesk.create({
+              name: req.param('name'),
+            }, function userCreated(err, newTypehelpdesk) {
+              if (err) 
+               return res.json({
+                err: "Erro ao Gravar!"
+              });
+
+            console.log('Gravando Typehelpdesk');
+            console.log(req.param('users'));
+            newTypehelpdesk.users.add(req.param('users'));
+
+  
+            newTypehelpdesk.save(function(err) {
+                return res.json({
+                    id: err
+                });
+  
+            });
+             
+             
+    
+  });
+     }
 	
 };
 

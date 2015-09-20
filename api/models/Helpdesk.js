@@ -8,7 +8,7 @@
 module.exports = {
 
   attributes: {
-    name: {
+    description: {
       type: 'string',
       required: true
     }, 
@@ -16,10 +16,23 @@ module.exports = {
             collection: 'helpdeskhistory',
             via: 'helpdesk'
         },
-      helpdesk:{
+      attachedfiles:{
             collection: 'attachedfiles',
             via: 'helpdesk'
-        }
+      },
+      owner: {
+        model: 'user'
+      },
+      helperuser: {
+        model: 'user'
+      },
+      status :{
+        type: 'string'
+      },type:{
+        model: 'typehelpdesk'
+      }, priority:   {
+        type: 'string'
+     }
   }
 };
 

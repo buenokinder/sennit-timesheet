@@ -13,26 +13,21 @@ module.exports = {
    * Upload file(s) to the server's disk.
    */
   upload: function (req, res) {
+      console.log(sails.config.appPath);
 
-    // e.g.
-    // 0 => infinite
-    // 240000 => 4 minutes (240,000 miliseconds)
-    // etc.
-    //
-    // Node defaults to 2 minutes.
-    res.setTimeout(0);
-
-    req.file('avatar')
-    .upload({
-
-      // You can apply a file upload limit (in bytes)
-      maxBytes: 1000000
-      
-    }, function whenDone(err, uploadedFiles) {
-      if (err) return res.serverError(err);
-      else return res.json({
-        files: uploadedFiles,
-        textParams: req.params.all()
+    var uploadFile = req.file('file')
+      //console.log(uploadFile);
+    uploadFile.upload({
+      dirname: require('path').resolve(sails.config.appPath, '/assets/images') ,
+      maxBytes: 100000000
+    }, function(err, files) {
+      if (err)
+        return res.serverError(err);
+            
+        console.log('arquivo gravado');
+      return res.json({
+        message: files.length + ' file(s) uploaded successfully!',
+        files: files
       });
     });
   },

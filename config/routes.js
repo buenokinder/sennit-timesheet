@@ -46,8 +46,11 @@ module.exports.routes = {
   // User enrollment + authentication
   'POST /signup': 'UserController.signup',
   'PUT /login': 'UserController.login',
-  'GET /logout': 'UserController.logout'
+  'GET /logout': 'UserController.logout',
 
+    'POST /typehelpdesk': 'TypehelpdeskController.new',
+    'POST /typehelpdesk': 'TypehelpdeskController.deleteAssossiation'
+    
   // '/': {
   //   view: 'homepage'
   // }

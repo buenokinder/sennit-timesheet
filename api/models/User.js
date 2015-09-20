@@ -52,13 +52,14 @@ module.exports = {
       defaultsTo: false
     },
 
-    // url for gravatar
     gravatarUrl: {
       type: 'string'
     },
-      typehelps:{
-            collection: 'typehelpdesk',
+   typehelpdesks:{
+          
+          collection: 'typehelpdesk',
             via: 'users'
+            
         }
   }
 };

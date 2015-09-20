@@ -14,9 +14,12 @@ module.exports = {
       required: true
     },
       users:{
-            collection: 'user',
-            via: 'typehelps'
+          
+          collection: 'user',
+            via: 'typehelpdesks',
+            
         }
+   
   }
 };
 

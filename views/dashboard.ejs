@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/angular-toastr.css">
+    <link rel="stylesheet" href="/styles/angular-wizard.min.css">
     <link rel="stylesheet" href="/styles/app.css">
     <link rel="stylesheet" href="/styles/bootstrap.3.1.1.css">
     <link rel="stylesheet" href="/styles/importer.css">
@@ -37,6 +38,18 @@
         <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
           <!-- This is what "styles" the li's as navbar items -->
           <ul class="nav navbar-nav navbar-right">
+                <li   ng-show="isAdmin" class="dropdown">
+                    <a data-toggle="dropdown" href="" class="dropdown-toggle" aria-expanded="true">
+                        <small>Administration</small>
+                      </span>
+
+                      <i class="ace-icon fa fa-caret-down"></i>
+                    </a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#/user">User</a></li>
+                       
+                      </ul>
+                  </li>
               <li class="dropdown">
                     <a data-toggle="dropdown" href="" class="dropdown-toggle" aria-expanded="true">
                         <small>Asset</small>
@@ -49,7 +62,19 @@
                         <li><a href="#/type">Type</a></li>
                       </ul>
                   </li>
-          
+                   <li class="dropdown" >
+                    <a data-toggle="dropdown" href="" class="dropdown-toggle" aria-expanded="true">
+                        <small>Help Desk</small>
+                      </span>
+
+                      <i class="ace-icon fa fa-caret-down"></i>
+                    </a>
+                      <ul class="dropdown-menu">
+                        <li  ng-show="isAdmin"><a href="#/typehelpdesk">Type Help Desk</a></li>
+                   
+                        <li><a href="#/helpdesk">Dashboard</a></li>
+                      </ul>
+                  </li>
           <li class="dropdown" >
                     <a data-toggle="dropdown" href="" class="dropdown-toggle" aria-expanded="true">
                         <small>TimeSheet</small>
@@ -114,6 +139,7 @@
     <script src="/js/dependencies/angular-animate.min.js"></script>
     <script src="/js/dependencies/angular-aria.min.js"></script>
     <script src="/js/dependencies/angular-cookies.min.js"></script>
+    <script src="/js/dependencies/angular-file-upload.min.js"></script>
     <script src="/js/dependencies/angular-loader.min.js"></script>
     <script src="/js/dependencies/angular-message-format.min.js"></script>
     <script src="/js/dependencies/angular-messages.min.js"></script>
@@ -123,14 +149,21 @@
     <script src="/js/dependencies/angular-scenario.js"></script>
     <script src="/js/dependencies/angular-toastr.js"></script>
     <script src="/js/dependencies/angular-touch.min.js"></script>
+    <script src="/js/dependencies/angular-wizard.min.js"></script>
     <script src="/js/dependencies/bootstrap.min.js"></script>
     <script src="/js/dependencies/compareTo.module.js"></script>
+    <script src="/js/dependencies/load-dash.js"></script>
     <script src="/js/dependencies/sennit-modules-js.js"></script>
     <script src="/js/dependencies/ui-bootstrap-tpls-0.13.4.min.js"></script>
     <script src="/js/public/signup/SignupModule.js"></script>
-    <script src="/js/private/dashboard/DashboardModule.js"></script>
     <script src="/js/public/homepage/HomepageModule.js"></script>
+    <script src="/js/private/dashboard/App.js"></script>
     <script src="/js/private/dashboard/DashboardController.js"></script>
+    <script src="/js/private/dashboard/GridViewDirective.js"></script>
+    <script src="/js/private/dashboard/HelpDeskController.js"></script>
+    <script src="/js/private/dashboard/ProfileController.js"></script>
+    <script src="/js/private/dashboard/Route.js"></script>
+    <script src="/js/private/dashboard/TypeHelpDeskController.js"></script>
     <script src="/js/public/homepage/HomepageController.js"></script>
     <script src="/js/public/signup/SignupController.js"></script>
     <!--SCRIPTS END-->
