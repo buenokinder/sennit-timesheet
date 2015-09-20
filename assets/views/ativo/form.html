@@ -15,16 +15,15 @@
                 <label>Price: </label>
                 <input type="text" class="form-control" placeholder="Digite o preço" ng-model="ativo.price">
                 <label>Description: </label>
-                <input type="text" class="form-control" placeholder="Digite o descrição" ng-model="ativo.description" >
+                <textarea  class="form-control" placeholder="Digite o descrição" ng-model="ativo.description" ></textarea>
                 <label>Type: </label>
                 <select class="form-control" ng-model="tipo" ng-options="tipo.name for tipo in tipos track by tipo.id"></select>
-                
-                 <label>User: </label>
-                <select class="form-control" ng-model="user" ng-options="user.name for user in users track by user.id"></select>
+                <label>User: </label>
+                <select class="form-control" ng-model="usuario" ng-options="usuario.name for usuario in users track by usuario.id"></select>
 
 
-                <a href="#/ativos" class="btn btn-primary">Back</a>
-                <a href="#/ativos" type="submit" class="btn btn-primary" ng-click="gravarAtivos()">Save</a>
+                <a href="#/asset" class="btn btn-primary">Back</a>
+                <a href="#/aseet" type="submit" class="btn btn-primary" ng-click="gravarAtivos()">Save</a>
             </div>
         </div>
     </div>

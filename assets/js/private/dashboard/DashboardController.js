@@ -261,13 +261,14 @@ $scope.today = function() {
 
 
 app.controller('ativosController', ['$scope', '$http', function($scope, $http){
-  $scope.ativo = [];
-  $scope.tipo = [];
   $scope.ativos = [];
+<<<<<<< HEAD
      $scope.price = [];
+=======
+  $scope.tipo = [];
+>>>>>>> origin/master
   $scope.tipos = [];
- $scope.users = [];
-    $scope.user = [];
+  $scope.usuario = [];
 	$scope.timesheetForm = {
 		loading: false
 	}
@@ -278,7 +279,7 @@ app.controller('ativosController', ['$scope', '$http', function($scope, $http){
     });
 
       
-          $http.get("user").then(function(results) {
+    $http.get("user").then(function(results) {
       $scope.users = angular.fromJson(results.data);
     });
 
@@ -300,10 +301,10 @@ app.controller('ativosController', ['$scope', '$http', function($scope, $http){
 			assetNumber: $scope.ativo.assetNumber,
 			model: $scope.ativo.model,
 			size: $scope.ativo.size,
-			description: $scope.ativo.description,
-			type: $scope.tipo.id,
-            price: $scope.price,
-            user: $scope.user
+      price: $scope.ativo.price,
+      description: $scope.ativo.description,
+      type: $scope.tipo,
+      owner: $scope.usuario
 		})
 		.then(function onSuccess(sailsResponse){
 			window.location = '/#/asset';
@@ -325,17 +326,18 @@ app.controller('ativosController', ['$scope', '$http', function($scope, $http){
 
 app.controller('ativosUpdateController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
   $scope.ativo = [];
-  $scope.tipo = [];
   $scope.tipos = [];
+  $scope.users = [];
 	$scope.timesheetForm = {
 		loading: false
 	}
 
   $scope.update = function() {
       // Submit request to Sails.
-		$http.put('/ativo/' + $routeParams.id + '?name='+ $scope.ativo.name + '&serialNumber=' + $scope.ativo.serialNumber + '&assetNumber=' + $scope.ativo.assetNumber + '&model=' + $scope.ativo.model + '&size=' + $scope.ativo.size + '&description=' + $scope.ativo.description + '&type=' + $scope.ativo.type.id+ '&price=' + $scope.ativo.price)
+		$http.put('/ativo/' + $routeParams.id + '?name='+ $scope.ativo.name + '&serialNumber=' + $scope.ativo.serialNumber + '&assetNumber=' + $scope.ativo.assetNumber + '&model=' + $scope.ativo.model + '&size=' + $scope.ativo.size + '&price=' + $scope.ativo.price + '&description=' + $scope.ativo.description + '&type=' + $scope.ativo.type.id + '&owner=' + $scope.ativo.owner.id)
 		.then(function onSuccess(sailsResponse){
-			window.location = '/#/asset';
+			console.log($scope.ativo.user);
+      window.location = '/#/asset';
 		})
 		.catch(function onError(sailsResponse){
 
@@ -350,7 +352,12 @@ app.controller('ativosUpdateController', ['$scope', '$http', '$routeParams', fun
   $http.get("/ativo/" + $routeParams.id).then(function(results) {
     $scope.ativo = angular.fromJson(results.data);
   });
+
   $http.get("tipoativo").then(function(results) {
     $scope.tipos = angular.fromJson(results.data);
+  });
+
+  $http.get("user").then(function(results) {
+    $scope.users = angular.fromJson(results.data);
   });
 }]);
