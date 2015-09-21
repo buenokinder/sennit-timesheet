@@ -7,6 +7,8 @@ app.controller('helpdeskController', ['$location', '$routeParams', '$scope', '$h
     $scope.typehelpdesk = [];
     $scope.priority= [];
     $scope.description= [];
+    $scope.shortdescription= [];
+    
     $scope.images = [];
     $scope.typehelpdesks = [];
     
@@ -19,7 +21,7 @@ app.controller('helpdeskController', ['$location', '$routeParams', '$scope', '$h
         });     
     };
     
-    $scope.submitHelpDesk = function(description, typehelpdesk,priority){
+    $scope.submitHelpDesk = function(description, typehelpdesk,priority,shortdescription){
 
 		
 		// Submit request to Sails.
@@ -27,7 +29,8 @@ app.controller('helpdeskController', ['$location', '$routeParams', '$scope', '$h
 			priority: priority,
             description: description,
 			owner: window.SAILS_LOCALS.me.id,
-			type: typehelpdesk
+			type: typehelpdesk,
+      shortdescription: shortdescription
 		})
 		.then(function onSuccess(sailsResponse){
 			console.log(sailsResponse);

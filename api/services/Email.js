@@ -38,6 +38,28 @@ module.exports = {
                         console.log(err);
                     }
                 );
+    },sendHelpDeskUser: function(senderName, data,description,to,type, priority , number){
+        sails.hooks.email.send(
+                "openerTicketEmail",
+                {
+                    recipientName: "Joe",
+                    senderName: senderName,
+                    data: data,
+                    description: description,
+                    type: type,
+                    priority: priority,
+                    number: number
+                },
+                {
+                to: to,
+                subject: "Seu chamado foi aberto com o numero " + number 
+                },
+                    function(err) {
+                        console.log(err);
+                    }
+                );
     }
+
+
 }
 

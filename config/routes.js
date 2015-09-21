@@ -50,6 +50,8 @@ module.exports.routes = {
 
   'POST /timesheet': 'TimesheetController.new',
     
+  'POST /helpdesk': 'HelpdeskController.create',
+
   'POST /typehelpdesk': 'TypehelpdeskController.new',
   'POST /typehelpdesk/delete': 'TypehelpdeskController.deleteAssossiation',
   'POST /typehelpdesk/add': 'TypehelpdeskController.addAssossiation'  

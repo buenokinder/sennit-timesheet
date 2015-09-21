@@ -58,7 +58,7 @@
       <br/>
 
       <!-- Disable signup button until the form has no errors -->
-      <button class="btn btn-primary btn-lg btn-block" type="button" wz-next="submitHelpDesk(description,typehelpdesk,priority )" ng-disabled="timesheet.$invalid">
+      <button class="btn btn-primary btn-lg btn-block" type="button" wz-next="submitHelpDesk(description,typehelpdesk,priority ,shortdescription)" ng-disabled="timesheet.$invalid">
         <span ng-show="!timesheetForm.loading">Continue</span>
         <span class="overlord-loading-spinner fa fa-spinner" ng-show="signupForm.loading" ></span>
         <span ng-show="timesheetForm.loading">Preparing your new appointment...</span>
