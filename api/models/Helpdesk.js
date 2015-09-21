@@ -6,8 +6,16 @@
 */
 
 module.exports = {
-
+  migrate: 'drop',
   attributes: {
+
+    number: {
+      type: 'integer'
+    },
+    shortdescription: {
+      type: 'string',
+      required: true
+    },
     description: {
       type: 'string',
       required: true
@@ -33,6 +41,18 @@ module.exports = {
       }, priority:   {
         type: 'string'
      }
-  }
+  },
+    beforeCreate : function (values, cb) {
+
+        // add seq number, use
+        Sequence.next("order", function(err, num) {
+
+            if (err) return cb(err);
+
+            values.number = num;
+
+            cb();
+        });
+    }
 };
 

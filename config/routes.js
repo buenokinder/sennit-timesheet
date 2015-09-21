@@ -48,8 +48,11 @@ module.exports.routes = {
   'PUT /login': 'UserController.login',
   'GET /logout': 'UserController.logout',
 
-    'POST /typehelpdesk': 'TypehelpdeskController.new',
-    'POST /typehelpdesk': 'TypehelpdeskController.deleteAssossiation'
+  'POST /timesheet': 'TimesheetController.new',
+    
+  'POST /typehelpdesk': 'TypehelpdeskController.new',
+  'POST /typehelpdesk/delete': 'TypehelpdeskController.deleteAssossiation',
+  'POST /typehelpdesk/add': 'TypehelpdeskController.addAssossiation'  
     
   // '/': {
   //   view: 'homepage'

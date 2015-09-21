@@ -1,3 +1,3 @@
 <section >
-    <form-view fields="[{'name': 'name' , 'value': 'Name'},{ 'name': 'users' , 'value': 'Users', 'type': 'table-add-remove', 'model': 'usuarios' , 'text': 'name' , 'valuesource': 'id', 'tableadd': { 'model': 'usuarios' , 'text': 'name', 'valuesource': 'id' } }]" datasource="[{ 'name': 'usuarios', 'url': 'user'  }]"  listaname="typehelpdesk" label="Type HelpDesk" redirecionar="typehelpdesk" strupdate="true"></form-view>
+    <form-view fields="[{'name': 'name' , 'value': 'Name'},{ 'name': 'users' , 'value': 'Users', 'type': 'table-add-remove', 'model': 'usuarios' , 'text': 'name' , 'valuesource': 'id', 'tableadd': { 'model': 'usuarios' , 'text': 'name', 'valuesource': 'user', 'apiadd': 'typehelpdesk/add', 'apidelete': 'typehelpdesk/delete',  } }]" datasource="[{ 'name': 'usuarios', 'url': 'user'  }]"  listaname="typehelpdesk" label="Type HelpDesk" redirecionar="typehelpdesk" strupdate="true"></form-view>
 </section>

@@ -33,6 +33,7 @@
             },
             controller: function ($scope, $element, $http) {
                 $scope.data = ([]);
+                $scope.me = window.SAILS_LOCALS.me;
                 $scope.ActualPage = 1;
                 $scope.skip = 0;
                 $scope.TotalItens = 0;
@@ -80,7 +81,7 @@
 
                      $scope.refreshPage = function () {
 
-                     $http.get("/"+ $scope.listaname +"/").then(function (results) {
+                     $http.get("/"+ $scope.listaname ).then(function (results) {
                         $scope.TotalItens = results.data;
                         var range = [];
                         var total = ($scope.TotalItens.length / $scope.pagesize);
@@ -101,7 +102,12 @@
                     if ($scope.fields.length)
                         query = query.substring(0, query.length - 1);
 
-                    $http.get("/"+ $scope.listaname +"/?skip="+  $scope.skip  +"&limit="+ $scope.pagesize ).then(function(results) {
+                    if($scope.listaname.indexOf("?") < 0)    
+                         $scope.listaname +=   "?";
+                    else
+                        $scope.listaname +=   "&";
+
+                    $http.get("/"+ $scope.listaname +"skip="+  $scope.skip  +"&limit="+ $scope.pagesize ).then(function(results) {
                         $scope.data = angular.fromJson(results.data);
                         console.log($scope.data );
                     });
@@ -161,13 +167,14 @@
                                     HtmlFormBody += "<select  id='" + $scope.fields[key].name + "'  class='form-control emailReminder width-169 ng-pristine ng-invalid ng-invalid-required ng-touched' ng-model='combodata." + $scope.fields[key].name + "' ng-options='x as x." + $scope.fields[key].tableadd.text + " for x in " + $scope.fields[key].tableadd.model + "' value=''></select>";
                                     HtmlFormBody += "</select>";
                                             HtmlFormBody += "<td class='col-lg-2 col-md-3 col-sm-4 text-center'>";
-                                    HtmlFormBody += "<button type='button' class='mb-sm btn btn-danger' ng-click='addTable(combodata." + $scope.fields[key].name + ",&#39;" + $scope.fields[key].name  + "&#39;)' aria-label='Left Align'>";
-                                    HtmlFormBody += " Add <i class='fa fa-trash' aria-hidden='true'></i>";
+                                    HtmlFormBody += "<button type='button' class='mb-sm btn btn-labeled btn-primary' ng-click='Associate(combodata." + $scope.fields[key].name + ",&#39;" + $scope.fields[key].name  + "&#39;,&#39;" + $scope.fields[key].name  + "&#39; ,&#39;" + $scope.fields[key].tableadd.apiadd  + "&#39;, &#39;add&#39;)' aria-label='Left Align'>";
+                                    HtmlFormBody += " Add <i class='fa fa-plus'></i>";
                                     HtmlFormBody += "</button>";
                                     HtmlFormBody += "</td>";
                                     HtmlFormBody += "</div>";
                                   
                                   }
+                               
                                       
                                     HtmlFormBody += "<table class='table table-bordered table-hover'>";
                                     HtmlFormBody += "<thead class='thead-sennit'>";
@@ -182,7 +189,7 @@
                                     HtmlFormBody += "{{datum." + $scope.fields[key].text + " }}";
                                     HtmlFormBody += "</td>";
                                     HtmlFormBody += "<td class='col-lg-2 col-md-3 col-sm-4 text-center'>";
-                                    HtmlFormBody += "<button type='button' class='mb-sm btn btn-danger' ng-click='delete(datum." + $scope.fields[key].tableadd.valuesource + ",&#39;" + $scope.fields[key].tableadd.model  + "&#39;)' aria-label='Left Align'>";
+                                    HtmlFormBody += "<button type='button' class='mb-sm btn btn-danger' ng-click='Associate(datum, &#39;" + $scope.fields[key].name + "&#39;,&#39;" + $scope.fields[key].tableadd.valuesource  + "&#39; ,&#39;" + $scope.fields[key].tableadd.apidelete  + "&#39;, &#39;delete&#39;)' aria-label='Left Align'>";
                                     HtmlFormBody += " <i class='fa fa-trash' aria-hidden='true'></i>";
                                     HtmlFormBody += "</button>";
                                     HtmlFormBody += "</td>";
@@ -264,22 +271,32 @@
                
                 };
                     
-                $scope.addTable = function (value, model) {
-                    $scope.data[model].push(value);
-
+                $scope.Associate = function (value, model,id, api, type) {
+                  
+                    var idAssossiate = "id";
+                    var dataAssossiate = '{ "'+ id + '": "' + value[idAssossiate]+ '" , "id": "'+ $routeParams.id + '"}';     
+                    console.log(model);
+                    $http.post('/' + api , dataAssossiate)
+                        .then(function (project) {
+                            if(type == "add")
+                                $scope.data[model].push(value);
+                            else
+                                $scope.data[model].splice ($scope.getResourceIndex($scope.data[model], value),1);
+                    });
                 };
-                $scope.delete = function (id) {
-                    console.log(id);
-                    //console.log(model);
-                    //$http.delete('/' + $scope.listaname +'/' + id )
-                    //    .then(function (project) {
-                    //    $scope.refreshPage();
-                    //});
+                
+                
+                $scope.getResourceIndex = function(resources, resource) {
+                    var index = -1;
+                    for (var i = 0; i < resources.length; i++) {
+                        if (resources[i].id == resource.id) {
+                            index = i;
+                        }
+                    }
+                    return index;
+                }
 
-                };
-
-
-            $scope.add = function () {
+                $scope.add = function () {
                     // Set the loading state (i.e. show loading spinner)
                     $scope.timesheetForm.loading = true;
 
@@ -369,10 +386,14 @@
 
                     var query;
                     for (var key in $scope.data) {
-                        if (query)
-                            query += "&" + key + "="+ $scope.data[key];
-                        else
-                            query = "" + key + "="+ $scope.data[key];
+                        if (query){
+                            if(!Array.isArray($scope.data[key]))
+                                query += "&" + key + "="+ $scope.data[key];
+                        }
+                        else{
+                            if(!Array.isArray($scope.data[key]))
+                                query = "" + key + "="+ $scope.data[key];
+                        }
                     }
 
                       $http.put('/'+ $scope.listaname +'/' + $routeParams.id + '?'+ query)

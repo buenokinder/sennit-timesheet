@@ -1,6 +1,11 @@
 
 
 
+app.controller('helpdeskDashBoardController', [ '$scope', function($scope){
+ 
+
+  $scope.me =  window.SAILS_LOCALS.me;
+}]);
 app.controller('DashboardController', [ '$scope', function($scope){
  
 
@@ -262,11 +267,11 @@ $scope.today = function() {
 
 app.controller('ativosController', ['$scope', '$http', function($scope, $http){
   $scope.ativos = [];
-<<<<<<< HEAD
+
      $scope.price = [];
-=======
+
   $scope.tipo = [];
->>>>>>> origin/master
+
   $scope.tipos = [];
   $scope.usuario = [];
 	$scope.timesheetForm = {
