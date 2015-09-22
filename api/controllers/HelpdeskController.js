@@ -6,10 +6,42 @@
  */
 
 module.exports = {
+  findAtendimentoUsuario: function (req, res) {
+    var params = req.params.all();
+    console.log('foi');
+return res.json([{}]);
+    User.findOne(params.id).populate('typehelpdesks').exec(function(err, users){
+      
+        res.send(users);
+
+      var parameter;
+      for (var i = 0; i < users.typehelpdesks.length; i++) {
+        if(parameter)
+            parameter += ', { "type": "' + users.typehelpdesks[i].id + '" }';
+          else  
+            parameter = '[{ "type": "' + users.typehelpdesks[i].id + '"}';
+      }
+      if(!parameter)
+        return res.json([{}]);
+      parameter+="]";
+      console.log(parameter);
+    Helpdesk.find().where(JSON.parse(parameter)).exec(function (err, helpdesk){
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      res.send(helpdesk);
+
+      
+    });
+    });
+    
+  },
+
 	create: function(req, res, next) {
 
-    var params = req.params.all();
-
+      var params = req.params.all();
+      params.status = 'aberto';
     	Helpdesk.create(params, function(err, helpdesk) {
 
         	if (err) return next(err);

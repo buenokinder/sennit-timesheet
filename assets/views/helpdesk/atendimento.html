@@ -1,0 +1,20 @@
+
+</style>
+<div class="container" ng-controller="helpdeskAtendimentoController">
+<section  >
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-10 col-centered">
+                <h1>Atendimento</h1>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col-md-10 col-centered">
+                <grid-view fields="[{'name': 'shortdescription', 'value': 'Short Description' } ,{'name': 'number', 'value': 'Tiket Number' } ]" listaname="helpdesk/add?id={{me.id}}" autopage="false" adicionar="/#/helpdesk/new" view="project" pagesize="10"></grid-view>
+            </div>
+        </div> 
+      
+    </div>
+  
+</section>
+</div>

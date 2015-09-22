@@ -3,6 +3,13 @@ app.controller('helpdeskDashboardController', ['$location', '$routeParams', '$sc
     
         
 }]);
+
+
+app.controller('helpdeskAtendimentoController', ['$location', '$routeParams', '$scope', '$http',  'FileUploader', function($location, $routeParams, $scope, $http,FileUploader){
+      $scope.me =  window.SAILS_LOCALS.me;
+        
+}]);
+
 app.controller('helpdeskController', ['$location', '$routeParams', '$scope', '$http',  'FileUploader', function($location, $routeParams, $scope, $http,FileUploader){
     $scope.typehelpdesk = [];
     $scope.priority= [];
@@ -20,6 +27,10 @@ app.controller('helpdeskController', ['$location', '$routeParams', '$scope', '$h
 		.catch(function onError(sailsResponse){
         });     
     };
+
+    $scope.finalizarHelpdesk = function(){
+        window.location = '/#/helpdesk';
+    }
     
     $scope.submitHelpDesk = function(description, typehelpdesk,priority,shortdescription){
 
@@ -27,7 +38,7 @@ app.controller('helpdeskController', ['$location', '$routeParams', '$scope', '$h
 		// Submit request to Sails.
 		$http.post('/helpdesk', {
 			priority: priority,
-            description: description,
+      description: description,
 			owner: window.SAILS_LOCALS.me.id,
 			type: typehelpdesk,
       shortdescription: shortdescription

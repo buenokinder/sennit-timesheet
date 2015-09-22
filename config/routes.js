@@ -39,6 +39,7 @@ module.exports.routes = {
   'GET /signup': {view: 'signup'},
   'GET /': 'PageController.showHomePage',
 
+
   ////////////////////////////////////////////////////////////
   // JSON API
   ////////////////////////////////////////////////////////////
@@ -49,7 +50,10 @@ module.exports.routes = {
   'GET /logout': 'UserController.logout',
 
   'POST /timesheet': 'TimesheetController.new',
-    
+  'GET /timesheet/dashboard': 'TimesheetController.findByDateName',
+  
+   
+  'GET /helpdesk/add': 'HelpdeskController.findAtendimentoUsuario', 
   'POST /helpdesk': 'HelpdeskController.create',
 
   'POST /typehelpdesk': 'TypehelpdeskController.new',

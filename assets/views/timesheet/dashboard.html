@@ -1,21 +1,65 @@
-
-<div class="container">
-<section  >
+<div class="center-block" ng-init="init()">
+  <div class="span12 dm-libg">
+    <div class="dm-line-free dm-lifree">
+      <h3>  Timesheet Gerencial Dashboard</h3>
+    </div>
+  </div>
     <div class="form-group">
         <div class="row">
-            <div class="col-md-10 col-centered">
-                <grid-view 
-                           filters="[ { 'name': 'Project', 'type': 'combobox' , 'api': { 'name': 'project' , 'key': 'id', 'value': 'name', 'modelListName': 'projects', 'singleModel': 'project' } } ]" 
-                           fields="[{'name': 'data', value: 'Date', 'sub': '' , 'type': 'date'},{'name': 'owner', value: 'Owner', 'sub': 'name' } ,{'name': 'project', value: 'Project', 'sub': 'name' },{'name': 'quantityTime', value: 'Hours', 'sub': '' } ]"                                                listaname="timesheet" 
-                           strupdate="false" 
-                           adicionar="" 
-                           view="Time Sheet" 
-                           pagesize="20"
-                           
-                           ></grid-view>
-            </div>
-        </div> 
-      
+            <div  class="col-md-10 col-centered">
+            <div  class="col-md-4">
+            <h4>Select Initial Date</h4>
+    <div style="display:inline-block; min-height:290px;">
+      <datepicker ng-model="dataInicial" min-date="minDate" show-weeks="true" class="well well-sm"  custom-class="getDayClass(date, mode)"></datepicker>
     </div>
-</section>
+            </div>
+            <div  class="col-md-4">
+             <h4>Select End Date</h4>
+    <div style="display:inline-block; min-height:290px;">
+      <datepicker ng-model="dataFinal" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
+    </div>
+            </div>
+            <div  class="col-md-4">
+              <div class="control-group form-group col-md-12">
+          <label>Project</label>
+          <select name="project" required="" class="form-control ng-pristine ng-valid ng-valid-required" ng-model="project" ng-change="changeProject(project)" ng-options="project.name for project in projects  track by  project.id"><option value="?" selected="selected" label=""></select>
+          <!--<span class="help-block has-error" ng-if="signup.email.$dirty">
+            <span ng-show="signup.email.$error.required">Email address is required.</span>
+            <span ng-show="signup.email.$error.email">Not a valid email address.</span>
+          </span>-->
+        </div>
+        <button ng-click="buscar()" class="btn btn-primary">Buscar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    
+
+   
+
+   
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Project</th>
+         <th>Date</th>
+         <th>User</th>
+         <th>Hours</th>
+         <th>Description</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="timesheet in timesheets">
+       
+        <th>{{timesheet.project.name}}</th>
+        <th>{{timesheet.data | date: "dd/MM/yyyy"}}</th>
+         <th>{{timesheet.owner.name}}</th>
+          <th>{{timesheet.quantityTime}}</th>
+           <th>{{timesheet.description}}</th>
+      </tr>
+    </tbody>
+  </table>
 </div>
+
+

@@ -6,7 +6,7 @@
 */
 
 module.exports = {
-  migrate: 'drop',
+  
   attributes: {
 
     number: {
@@ -35,7 +35,9 @@ module.exports = {
         model: 'user'
       },
       status :{
-        type: 'string'
+        type: 'string',
+        required: true,
+        enum: ['aberto', 'aceito', 'analise','andamento', 'concluido', 'encerrado' ]
       },type:{
         model: 'typehelpdesk'
       }, priority:   {

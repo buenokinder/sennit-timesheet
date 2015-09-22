@@ -6,9 +6,21 @@
  */
 
 module.exports = {
-	findByDate: function(req, res) {
-    var name = req.param('date');
-    Timesheet.findByName(name).done(function (err, users) {
+	findByDateName: function(req, res) {
+    console.log('entrou 123');
+    var dataInicial = req.param('initialdate');
+    //var dataFinal = req.param('enddate');
+    var typeProject = req.param('project');
+    console.log('teste');
+    Timesheet.find().where(
+[{
+'date': { '>': dataInicial },
+'project': { '=': typeProject}
+}]
+      ).exec(function (err, users) {
+
+        console.log('project');
+ 
       if (err) {
         res.send(400);
       } else {

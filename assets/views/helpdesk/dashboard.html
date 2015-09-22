@@ -13,7 +13,20 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-10 col-centered">
-                <h1>Open Tickets</h1>
+                <h1>Atendimento</h1>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col-md-10 col-centered">
+                <grid-view fields="[{'name': 'shortdescription', 'value': 'Short Description' } ,{'name': 'number', 'value': 'Tiket Number' } ]" listaname="helpdesk?where={ &#34;owner&#34;: &#34;{{me.id}}&#34; }" adicionar="/#/helpdesk/new" view="project" pagesize="10"></grid-view>
+            </div>
+        </div> 
+      
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-10 col-centered">
+                <h1>Aberto por mim</h1>
             </div>
         </div> 
         <div class="row">

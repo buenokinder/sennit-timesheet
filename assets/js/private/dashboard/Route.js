@@ -18,6 +18,7 @@ app.config(['$routeProvider',  function ($routeProvider) {
     });
 
     $routeProvider.when('/timesheetdashboard', {
+    	controller : 'TimeSheetDashboardController',
         templateUrl: '/views/timesheet/dashboard.html'
     });
     $routeProvider.when('/project', {
@@ -66,6 +67,9 @@ app.config(['$routeProvider',  function ($routeProvider) {
 		}).when("/helpdesk/new", {
 			controller: "helpdeskController",
 		  templateUrl: "/views/helpdesk/new.html"
+		}).when("/helpdesk/atendimento", {
+			controller: "helpdeskAtendimentoController",
+		  templateUrl: "/views/helpdesk/atendimento.html"
 		});
     
     
