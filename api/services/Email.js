@@ -1,4 +1,4 @@
-module.exports = {
+﻿module.exports = {
     sendTimeSheet: function(senderName, data,project,hours, description){
         sails.hooks.email.send(
                 "testEmail",
@@ -11,7 +11,7 @@ module.exports = {
                     description: description
                 },
                 {
-                to: "carlos@sennit.com.br;ronaldo@sennit.com.br",
+                to: "luciano@sennit.com.br;carlos@sennit.com.br",
                 subject: "Lançamento de horas Timesheet" 
                 },
                     function(err) {
