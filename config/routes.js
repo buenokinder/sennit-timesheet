@@ -49,6 +49,9 @@ module.exports.routes = {
   'PUT /login': 'UserController.login',
   'GET /logout': 'UserController.logout',
 
+
+  'GET /scheduler/start': 'SchedulerController.start',
+
   'POST /timesheet': 'TimesheetController.new',
   'GET /timesheet/dashboard': 'TimesheetController.findByDateName',
   

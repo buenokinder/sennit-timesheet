@@ -18,6 +18,21 @@ module.exports = {
                         console.log(err);
                     }
                 );
+    },sendTimeSheetDay: function(senderName, to,data){
+        sails.hooks.email.send(
+                "timeSheetUnknow",
+                {
+                    senderName: senderName,
+                    data: data
+                },
+                {
+                to: to,
+                subject: "Lançamento de horas Timesheet" 
+                },
+                    function(err) {
+                        console.log(err);
+                    }
+                );
     },sendHelpDesk: function(senderName, data,description,to,type, priority , number){
         sails.hooks.email.send(
                 "openTicketEmail",

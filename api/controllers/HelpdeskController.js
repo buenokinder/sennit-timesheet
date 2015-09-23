@@ -7,6 +7,7 @@
 
 module.exports = {
   findAtendimentoUsuario: function (req, res) {
+ 
     var params = req.params.all();
     console.log('foi');
 return res.json([{}]);
