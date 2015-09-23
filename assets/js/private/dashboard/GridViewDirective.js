@@ -107,13 +107,13 @@
                     if ($scope.fields.length)
                         query = query.substring(0, query.length - 1);
 
-
+                    var complemento = "";
                     if($scope.listaname.indexOf("?") < 0)    
-                         $scope.listaname +=   "?";
+                         complemento +=   "?";
                     else
-                        $scope.listaname +=   "&";
+                        complemento +=   "&";
 
-                    $http.get("/"+ $scope.listaname +"skip="+  $scope.skip  +"&limit="+ $scope.pagesize ).then(function(results) {
+                    $http.get("/"+ $scope.listaname + '' + complemento +"skip="+  $scope.skip  +"&limit="+ $scope.pagesize ).then(function(results) {
                         $scope.data = angular.fromJson(results.data);
                         console.log($scope.data );
                     });
