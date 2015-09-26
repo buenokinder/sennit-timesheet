@@ -8,7 +8,7 @@
  * For more information on configuration, check out:
  * http://sailsjs.org/#/documentation/reference/sails.config/sails.config.http.html
  */
-
+var fs = require('fs');
 module.exports.http = {
 
   /****************************************************************************
@@ -83,5 +83,7 @@ module.exports.http = {
   *                                                                          *
   ***************************************************************************/
 
-  // cache: 31557600000
+  
 };
+
+
