@@ -35,18 +35,40 @@ var url = require('url');
 var appSettings = require('../models/appSettings.js');
 
 var passport = require('passport');  
+
+
 module.exports = {
 
  login: passport.authenticate('azureoauth', { failureRedirect: '/' }),
 
- azurecallback: passport.authenticate('azureoauth', { failureRedirect: '/' }),
-        function (req, res) {
-            console.log('Foi 123!!!')
-            console.dir(passport.user.tokens);
-            res.render('apiTasks', { user : passport.user });
-    }
+ azurecallback: function(req, res){
+ passport.authenticate('azureoauth', function(err, user, info) {
+      if ((err) || (!user)) {
+        return res.send({
+        message: 'login failed'
+        });
+        res.send(err);
+      }
+      req.logIn(user, function(err) {
+          console.log(passport.user)
+        if (err) res.send(err);
+            req.session.me = passport.user.username;
+            return res.ok();
+      });
+    })(req, res);
+//     
+//   passport.authenticate('azureoauth', { failureRedirect: '/' }),
+//         function (req, res) {
+//             
+//             console.log('Foi 123!!!')
+//             console.dir(passport.user.tokens);
+//             
+//               // Store user id in the user session
+//           
+//          
+//     }
  
-    ,
+ },
 
     logout: function(req, res) {
         req.logout();

@@ -40,17 +40,8 @@
           <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
           <form ng-submit="submitLoginForm()" class="navbar-form navbar-right">
 
-              <div class="form-group">
-                  <input ng-model="loginForm.email" type="text" placeholder="Email" name="email" class="form-control">
-              </div>
-              <div class="form-group">
-                  <input ng-model="loginForm.password" type="password" placeholder="Password" name="password" class="form-control">
-              </div>
-              <button type="submit" class="btn btn-success">
-                <span ng-show="!loginForm.loading">Sign in</span>
-                <span ng-show="loginForm.loading" class="fa fa-spinner"></span>
-                <span ng-show="loginForm.loading">Signing in...</span>
-              </button>
+              <a href="/login"  class="btn btn-success" >Sign in</a>
+             
               <input type="hidden" name="_csrf" value="<%= _csrf %>" />
           </form>
         </nav>

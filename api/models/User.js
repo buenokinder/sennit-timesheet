@@ -1,9 +1,4 @@
-/**
-* User.js
-*
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
-*/
+
 
 module.exports = {
 
@@ -63,6 +58,63 @@ module.exports = {
           collection: 'typehelpdesk',
             via: 'users'
             
-        }
-  }
+        },
+   tokens:{
+     
+   },   
+    refresh_token:{
+     
+   },
+    username:{
+     
+   },
+    displayName :{
+     
+   },
+    capabilities :{
+     
+   }
+  },
+  validate: function (result, next) {
+         console.log(result);
+         if (!result) {
+             return next('invalid user');
+         } else if (!result.accessToken) {
+             return next('invalid credentials');
+         } else {
+           console.log('vai');
+            User.find()
+  .where({ username:  result.userProfile.username   })
+  .limit(1)
+  .exec(function(err, user) {
+    if(!user)
+      {
+        console.log('Criar');
+          User.create({
+              name: result.userProfile.displayname,
+              username: result.userProfile.username,
+              email: result.userProfile.username,
+              lastLoggedIn: new Date(),
+              gravatarUrl: ''
+            }, function userCreated(err, newUser) {
+           
+              return next(null, newUser);
+            });
+      }
+    else
+      return next(null, user);
+  });
+  //          var user;
+  //            user.displayname = result.userProfile.displayname;
+  //            user.username = result.userProfile.username;
+  //            
+  //            user.accessToken = result.accessToken;
+  //            user.refresh_token = result.refreshToken;
+ // 
+  //            result.tokenParams.refresh_token = result.refreshToken;
+  //            user.setToken(result.tokenParams);
+  //            console.log(user);
+             return next(null, null);
+         }
+     }
 };

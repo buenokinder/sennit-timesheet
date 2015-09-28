@@ -2,8 +2,8 @@
 
 var passport = require('passport');
 var AzureOAuthStrategy = require('passport-azure-oauth').Strategy;
-var User = require('../api/models/UserModel.js');
-var appSettings = require('../api/models/appSettings.js');
+//var User = require('../api/models/UserModel.js');
+var appSettings = require('../models/appSettings.js');
 
 
     // used to serialize the user for the session
@@ -13,9 +13,10 @@ var appSettings = require('../api/models/appSettings.js');
     
     // used to deserialize the user
     passport.deserializeUser(function (id, next) {
-        // User.findById(id, function (err, user) {
-        //     next(err, user);
-        // });
+      
+         User.findById(id, function (err, user) {
+             next(err, user);
+         });
     });
     
     // For information on the profile entries: see http://msdn.microsoft.com/en-us/library/azure/dn645542.aspx
@@ -30,15 +31,18 @@ var appSettings = require('../api/models/appSettings.js');
                 'userProfile': profile
             }, 
             function (err, user) {
-                console.log('teste Log');
+                console.log(user);
+                
+                console.log('Passou 1');
                 passport.user = null;
                 if (err)
                     return next(err);                
                 if (!user)
                     return next('Cannot verify the user ' + profile.displayname + ', ' + profile.username);                                
                 // all is well, return successful user
-                passport.user = user;               
-                return next(null, user);
+                passport.user = user;  
+                console.log('indo');
+                return next(err, user);
             });
         })
     );

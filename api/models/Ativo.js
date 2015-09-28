@@ -40,7 +40,7 @@ module.exports = {
       model: 'tipoAtivo'
     }, 
     owner: {
-      model: 'user'
+      type: 'string'
     }
   }
 };
