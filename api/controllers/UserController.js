@@ -43,6 +43,7 @@ module.exports = {
 
  azurecallback: function(req, res){
  passport.authenticate('azureoauth', function(err, user, info) {
+     
       if ((err) || (!user)) {
         return res.send({
         message: 'login failed'
@@ -50,7 +51,7 @@ module.exports = {
         res.send(err);
       }
       req.logIn(user, function(err) {
-          console.log(passport.user)
+          console.log(user)
         if (err) res.send(err);
             req.session.me = passport.user.username;
             return res.ok();
