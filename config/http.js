@@ -11,6 +11,31 @@
 var fs = require('fs');
 module.exports.http = {
 
+
+middleware: {
+
+    passportInit    : require('passport').initialize(),
+    passportSession : require('passport').session(),
+
+     order: [
+            'startRequestTimer',
+            'cookieParser',
+            'session',
+            'passportInit',     
+            'passportSession', 
+            'myRequestLogger',
+            'bodyParser',
+            'handleBodyParserError',
+            'compress',
+            'methodOverride',
+            'poweredBy',
+            'router',
+            'www',
+            'favicon',
+            '404',
+            '500'
+          ],
+     }
   /****************************************************************************
   *                                                                           *
   * Express middleware to use for every Sails request. To add custom          *

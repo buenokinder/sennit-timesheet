@@ -8,11 +8,11 @@ module.exports = {
   //
   // In this example, we'll assume you created a folder in your project, `config/ssl`
   // and dumped your certificate/key files there:
-   ssl: {
-     ca: require('fs').readFileSync(__dirname + '/ssl/ca.crt'),
-     key: require('fs').readFileSync(__dirname + '/ssl/server.key'),
-     cert: require('fs').readFileSync(__dirname + '/ssl/server.crt')
-   },
+  // ssl: {
+  //   ca: require('fs').readFileSync(__dirname + '/ssl/ca.crt'),
+  //   key: require('fs').readFileSync(__dirname + '/ssl/server.key'),
+  //   cert: require('fs').readFileSync(__dirname + '/ssl/server.crt')
+  // },
 
 
   // The `port` setting determines which TCP port your app will be deployed on
@@ -26,7 +26,7 @@ module.exports = {
   // In production, you'll probably want to change this setting
   // to 80 (http://) or 443 (https://) if you have an SSL certificate
 
-  port: process.env.PORT || 443,
+  port: process.env.PORT || 1337,
 
 
 

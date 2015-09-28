@@ -55,7 +55,11 @@ module.exports.routes = {
   'POST /timesheet': 'TimesheetController.new',
   'GET /timesheet/dashboard': 'TimesheetController.findByDateName',
   
-   
+  
+   'GET /auth/azureOAuth': 'UserController.azure',
+    
+   'GET /auth/azureoauth/callback': 'UserController.azurecallback',
+  
   'GET /helpdesk/add': 'HelpdeskController.findAtendimentoUsuario', 
   'POST /helpdesk': 'HelpdeskController.create',
 
