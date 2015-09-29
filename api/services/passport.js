@@ -19,8 +19,17 @@ var appSettings = require('../models/appSettings.js');
          });
     });
     
+    var verificaUsuario = function(usuario){
+        console.log('foi');
+         User.findOne().exec(function userCreated(err, userresults) {
+             
+        });
+        
+    }
+    
     passport.validate = function (result, next) {
          console.log(result);
+         verificaUsuario(result);
          if (!result) {
              return next('invalid user');
          } else if (!result.accessToken) {

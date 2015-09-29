@@ -26,6 +26,7 @@ module.exports = {
           gravatarUrl: ''
         }
       });
+      
     // Otherwise, look up the logged-in user and show the logged-in view,
     // bootstrapping basic user data in the HTML sent from the server
    

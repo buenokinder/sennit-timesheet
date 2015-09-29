@@ -1,8 +1,13 @@
-
+/**
+* User.js
+*
+* @description :: TODO: You might write a short summary of how this model works and what it represents here.
+* @docs        :: http://sailsjs.org/#!documentation/models
+*/
 
 module.exports = {
 
-
+  migrate: 'drop',
   attributes: {
 
     
@@ -11,7 +16,7 @@ module.exports = {
     // e.g. Nikola Tesla
     name: {
       type: 'string',
- 
+      required: true
     },
 
     // The user's title at their job (or something)
@@ -24,22 +29,17 @@ module.exports = {
     // e.g. nikola@tesla.com
     email: {
       type: 'string',
- 
+      required: true,
       unique: true
     },
 
-    // The encrypted password for the user
-    // e.g. asdgh8a249321e9dhgaslcbqn2913051#T(@GHASDGA
-    encryptedPassword: {
-      type: 'string',
-  
-    },
+   
 
     // The timestamp when the the user last logged in
     // (i.e. sent a username and password to the server)
     lastLoggedIn: {
       type: 'date',
-     
+      required: true,
       defaultsTo: new Date(0)
     },
       // The timestamp when the the user last logged in
@@ -57,21 +57,6 @@ module.exports = {
           collection: 'typehelpdesk',
             via: 'users'
             
-        },
-   tokens:{
-     type: 'string'
-   },   
-    refresh_token:{
-     type: 'string'
-   },
-    username:{
-     type: 'string'
-   },
-    displayName :{
-     type: 'string'
-   },
-    capabilities :{
-     type: 'string'
-   }
+        }
   }
 };
