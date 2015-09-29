@@ -51,10 +51,12 @@ module.exports = {
         res.send(err);
       }
       req.logIn(user, function(err) {
-          console.log(user)
-        if (err) res.send(err);
-            req.session.me = passport.user.username;
+          console.log('Logado');
+          
+            req.session.me = user.username;
+            res.redirect('/#/dashboard');
             return res.ok();
+            
       });
     })(req, res);
 //     

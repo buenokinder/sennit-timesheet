@@ -19,12 +19,27 @@ var appSettings = require('../models/appSettings.js');
          });
     });
     
+    passport.validate = function (result, next) {
+         console.log(result);
+         if (!result) {
+             return next('invalid user');
+         } else if (!result.accessToken) {
+             return next('invalid credentials');
+         } else {
+          
+      return next(null, result);
+         }
+ 
+         
+     }
+        
+    
     // For information on the profile entries: see http://msdn.microsoft.com/en-us/library/azure/dn645542.aspx
     passport.use('azureoauth',  new AzureOAuthStrategy(
         appSettings.oauthOptions, 
         function Verify(accessToken, refreshToken, params, profile, next) {
             console.log(accessToken);
-            User.validate({
+            passport.validate({
                 'accessToken' : accessToken, 
                 'refreshToken' : refreshToken, 
                 'tokenParams': params, 

@@ -11,7 +11,7 @@ module.exports = {
     // e.g. Nikola Tesla
     name: {
       type: 'string',
-      required: true
+ 
     },
 
     // The user's title at their job (or something)
@@ -24,7 +24,7 @@ module.exports = {
     // e.g. nikola@tesla.com
     email: {
       type: 'string',
-      required: true,
+ 
       unique: true
     },
 
@@ -32,21 +32,20 @@ module.exports = {
     // e.g. asdgh8a249321e9dhgaslcbqn2913051#T(@GHASDGA
     encryptedPassword: {
       type: 'string',
-      required: true
+  
     },
 
     // The timestamp when the the user last logged in
     // (i.e. sent a username and password to the server)
     lastLoggedIn: {
       type: 'date',
-      required: true,
+     
       defaultsTo: new Date(0)
     },
       // The timestamp when the the user last logged in
     // (i.e. sent a username and password to the server)
     admin: {
       type: 'boolean',
-      required: true,
       defaultsTo: false
     },
 
@@ -60,61 +59,19 @@ module.exports = {
             
         },
    tokens:{
-     
+     type: 'string'
    },   
     refresh_token:{
-     
+     type: 'string'
    },
     username:{
-     
+     type: 'string'
    },
     displayName :{
-     
+     type: 'string'
    },
     capabilities :{
-     
+     type: 'string'
    }
-  },
-  validate: function (result, next) {
-         console.log(result);
-         if (!result) {
-             return next('invalid user');
-         } else if (!result.accessToken) {
-             return next('invalid credentials');
-         } else {
-           console.log('vai');
-            User.find()
-  .where({ username:  result.userProfile.username   })
-  .limit(1)
-  .exec(function(err, user) {
-    if(!user)
-      {
-        console.log('Criar');
-          User.create({
-              name: result.userProfile.displayname,
-              username: result.userProfile.username,
-              email: result.userProfile.username,
-              lastLoggedIn: new Date(),
-              gravatarUrl: ''
-            }, function userCreated(err, newUser) {
-           
-              return next(null, newUser);
-            });
-      }
-    else
-      return next(null, user);
-  });
-  //          var user;
-  //            user.displayname = result.userProfile.displayname;
-  //            user.username = result.userProfile.username;
-  //            
-  //            user.accessToken = result.accessToken;
-  //            user.refresh_token = result.refreshToken;
- // 
-  //            result.tokenParams.refresh_token = result.refreshToken;
-  //            user.setToken(result.tokenParams);
-  //            console.log(user);
-             return next(null, null);
-         }
-     }
+  }
 };
